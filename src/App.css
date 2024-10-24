@@ -1,0 +1,56 @@
+#root {
+  /* max-width: 1280px; */
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+}
+
+body {
+  background-color: #222;  
+  height: 100vh;
+}
+
+.btn {
+  background-color: rgb(73, 138, 236);
+  color: #fff;
+}
+
+.back-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.tools-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#priceFixerCalculator > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.valueInputs {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  color: #fff;
+}
+
+.valueInputs input {
+  width: 40px;
+  padding: 10px 15px;
+margin-left: 1rem;
+}
+
+.recipe_item {
+  color: #fff;
+}

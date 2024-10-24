@@ -1,0 +1,89 @@
+{
+    "reagents": {
+        "52983": {
+            "name": ["Cinderbloom", "Flor de ceniza" ],
+            "price": 1850057,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_herb_cinderbloom.jpg"
+        },
+        "52984": {
+            "name": ["Stormvine", "Viñaviento"],
+            "price": 3550060,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_herb_stormvine.jpg"
+        },
+        "52985": {
+            "name": ["Azshara's Veil", "Velo de Azshara"],
+            "price": 5990098,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_herb_azsharasveil.jpg"
+        },
+        "52986": {
+            "name": ["Heartblossom", "Flor de corazón"],
+            "price": 13920067,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_herb_heartblossom.jpg"
+        },
+        "52987": {
+            "name": ["Twilight Jasmine", "Jazmín Crepuscular"],
+            "price": 5990078,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_herb_twilightjasmine.jpg"
+        },
+        "52988": {
+            "name": ["Whiptail", "Colatigo"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_herb_whiptail.jpg"
+        },
+        "52329": {
+            "name": ["Volatile Life", "Vida volátil"],
+            "price": 3890064,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_volatilelife_green.jpg"
+        }
+    },
+
+    "items":  {
+        "58488": {
+            "name": ["Potion of Treasure Finding", "Poción de hallazgo de tesoros"],
+            "price": 187990098,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_potionsete.jpg",
+            "reagents": {
+                "52983": 8,
+                "52984": 4,
+                "52986": 6,
+                "52988": 4
+            }
+        },
+        "58145": {
+            "name": ["Potion of Tol'vir", "Poción de tol'vir"],
+            "price": 11240092,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potiond_4.jpg",
+            "reagents": {
+                "52984": 1,
+                "52988": 1
+            }
+        },
+        "57194": {
+            "name": ["Potion of Concentration", "Poción de concentración"],
+            "price": 11200067,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potionc_3.jpg",
+            "reagents": {
+                "52985": 2
+            }
+        },
+        "58091": {
+            "name": ["Volcanic Potion", "Poción volcánica"],
+            "price": 24990099,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potiond_3.jpg",
+            "reagents": {
+                "52983": 1,
+                "52985": 1
+            }
+        },
+        "58146": {
+            "name": ["Golemblood Potion", "Poción de sangre de golem"],
+            "price": 14990095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potiond_1.jpg",
+            "reagents": {
+                "52329": 1,
+                "52986": 1
+            }
+        }
+
+    }
+}
