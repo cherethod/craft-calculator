@@ -7,14 +7,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let accessToken = ''; // Token de acceso actual
-let tokenExpiresAt = 0; // Tiempo de expiración en formato epoch (segundos)
+let accessToken = ''; // Current access token
+let tokenExpiresAt = 0; // Expiration time in epoch format (seconds)
 
-// Función para verificar y actualizar el token si es necesario
+// Function to check and update the token if necessary
 const checkAuth = async () => {
   const currentTime = Math.floor(Date.now() / 1000);
 
-  // Si el token ha expirado o no está definido, obtenemos uno nuevo
+  // If the token has expired or is not defined, get a new one
   if (!accessToken || currentTime >= tokenExpiresAt) {
     try {
       const response = await axios.post('https://auth.tradeskillmaster.com/oauth2/token', {
@@ -25,15 +25,15 @@ const checkAuth = async () => {
       });
 
       accessToken = response.data.access_token;
-      tokenExpiresAt = Math.floor(Date.now() / 1000) + response.data.expires_in;  // Calcula cuándo expira
+      tokenExpiresAt = Math.floor(Date.now() / 1000) + response.data.expires_in;  // Calculate expiration time
     } catch (error) {
-      console.error('Error al autenticar:', error);
-      throw new Error('Error al autenticar con la API de TradeSkillMaster');
+      console.error('Error authenticating:', error);
+      throw new Error('Error authenticating with the TradeSkillMaster API');
     }
   }
 };
 
-// Ruta para manejar la solicitud de autenticación
+// Route to handle authentication requests
 app.post('/api/auth', async (req, res) => {
   try {
     const response = await axios.post('https://auth.tradeskillmaster.com/oauth2/token', {
@@ -44,55 +44,55 @@ app.post('/api/auth', async (req, res) => {
     });
 
     accessToken = response.data.access_token;  
-    tokenExpiresAt = Math.floor(Date.now() / 1000) + response.data.expires_in;  // Calcula cuándo expira
+    tokenExpiresAt = Math.floor(Date.now() / 1000) + response.data.expires_in;  // Calculate expiration time
 
     res.json({
       access_token: accessToken,
-      expires_at: tokenExpiresAt  // Envía también el tiempo de expiración
+      expires_at: tokenExpiresAt  // Also send the expiration time
     });
   } catch (error) {
-    console.error('Error al autenticar:', error);
-    res.status(500).json({ message: 'Error al autenticar con la API de TradeSkillMaster' });
+    console.error('Error authenticating:', error);
+    res.status(500).json({ message: 'Error authenticating with the TradeSkillMaster API' });
   }
 });
 
-// Ruta para obtener los precios de subasta de un ítem
+// Route to get auction prices for an item
 app.get('/api/auction-prices/:auctionHouseId/:itemId', async (req, res) => {
-  const { itemId } = req.params;  
+  const  {auctionHouseId, itemId } = req.params;  
 
   try {
     const currentTime = Math.floor(Date.now() / 1000);
 
-    // Verifica si el token ha expirado
+    // Check if the token has expired
     if (!accessToken || currentTime >= tokenExpiresAt) {
-      return res.status(401).json({ message: 'Token inválido o expirado. Necesita autenticarse nuevamente.' });
+      return res.status(401).json({ message: 'Invalid or expired token. Please authenticate again.' });
     }
 
-    // Hacer la solicitud a la API de TradeSkillMaster usando el token
+    // Make the request to the TradeSkillMaster API using the token
     const response = await axios.get(`https://pricing-api.tradeskillmaster.com/ah/${auctionHouseId}/item/${itemId}`, {
+      // const response = await axios.get(`https://pricing-api.tradeskillmaster.com/ah/${auctionHouseId}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     });
 
-    res.json(response.data);  // Envía los datos de precios al frontend
+    res.json(response.data);  // Send price data to the frontend
   } catch (error) {
-    console.error('Error al obtener los precios:', error);
+    console.error('Error fetching prices:', error);
 
     if (error.response && error.response.status === 401) {
-      // El token ha expirado o no es válido
-      return res.status(401).json({ message: 'Token inválido o expirado. Necesita autenticarse nuevamente.' });
+      // The token has expired or is invalid
+      return res.status(401).json({ message: 'Invalid or expired token. Please authenticate again.' });
     }
 
-    res.status(500).json({ message: 'Error al obtener precios de la API de TradeSkillMaster' });
+    res.status(500).json({ message: 'Error fetching prices from the TradeSkillMaster API' });
   }
 });
 
-
-// Ruta para obtener las regiones
+// Route to get regions
 app.get('/api/realms', async (req, res) => {
   try {
-    await checkAuth();  // Verifica el token antes de hacer la solicitud
+    await checkAuth();  // Check the token before making the request
 
     const response = await axios.get('https://realm-api.tradeskillmaster.com/realms', {
       headers: {
@@ -100,22 +100,20 @@ app.get('/api/realms', async (req, res) => {
       }
     });
 
-    res.json(response.data);  // Enviar las regiones al frontend
-    // console.log('Reinos:', response.data);
+    res.json(response.data);  // Send the regions to the frontend
     
   } catch (error) {
-    console.error('Error al obtener las reinos:', error);
-    res.status(500).json({ message: 'Error al obtener las reinos de la API de TradeSkillMaster' });
+    console.error('Error fetching realms:', error);
+    res.status(500).json({ message: 'Error fetching realms from the TradeSkillMaster API' });
   }
 });
 
-
-// Ruta para obtener reinos de una región específica
+// Route to get realms of a specific region
 app.get('/api/region/:regionId', async (req, res) => {
   const { regionId } = req.params;
 
   try {
-    await checkAuth();  // Verifica el token antes de hacer la solicitud
+    await checkAuth();  // Check the token before making the request
 
     const response = await axios.get(`https://realm-api.tradeskillmaster.com/regions/${regionId}/realms`, {
       headers: {
@@ -123,19 +121,19 @@ app.get('/api/region/:regionId', async (req, res) => {
       }
     });
 
-    res.json(response.data);  // Enviar los reinos al frontend
+    res.json(response.data);  // Send the realms to the frontend
   } catch (error) {
-    console.error('Error al obtener los reinos:', error);
-    res.status(500).json({ message: 'Error al obtener los reinos de la API de TradeSkillMaster' });
+    console.error('Error fetching realms:', error);
+    res.status(500).json({ message: 'Error fetching realms from the TradeSkillMaster API' });
   }
 });
 
-// Ruta para obtener info de un reino específico
+// Route to get info of a specific realm
 app.get('/api/realms/:realmId', async (req, res) => {
   const { realmId } = req.params;
 
   try {
-    await checkAuth();  // Verifica el token antes de hacer la solicitud
+    await checkAuth();  // Check the token before making the request
 
     const response = await axios.get(`https://realm-api.tradeskillmaster.com/realms/${realmId}`, {
       headers: {
@@ -143,14 +141,14 @@ app.get('/api/realms/:realmId', async (req, res) => {
       }
     });
 
-    res.json(response.data);  // Enviar los reinos al frontend
+    res.json(response.data);  // Send the realm data to the frontend
   } catch (error) {
-    console.error('Error al obtener los reinos:', error);
-    res.status(500).json({ message: 'Error al obtener los reinos de la API de TradeSkillMaster' });
+    console.error('Error fetching realms:', error);
+    res.status(500).json({ message: 'Error fetching realm data from the TradeSkillMaster API' });
   }
 });
 
-// Ruta para obtener las id de las casas de subastas de un reino
+// Route to get auction house IDs of a realm
 app.get('/api/auctionhouse/:regionId/:realmId', async (req, res) => {
   const { regionId, realmId } = req.params;
 
@@ -162,16 +160,17 @@ app.get('/api/auctionhouse/:regionId/:realmId', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error('Error al obtener la ID de la casa de subastas:', error);
-    res.status(500).json({ message: 'Error al obtener la casa de subastas' });
+    console.error('Error fetching auction house ID:', error);
+    res.status(500).json({ message: 'Error fetching auction house data' });
   }
 });
 
+// Route to get auction house info by ID
 app.get('/api/auction-houses/:auctionHouseId', async (req, res) => {
   const { auctionHouseId } = req.params;
 
   try {
-    await checkAuth();  // Verifica el token antes de hacer la solicitud
+    await checkAuth();  // Check the token before making the request
 
     const response = await axios.get(`https://pricing-api.tradeskillmaster.com/ah/${auctionHouseId}`, {
       headers: {
@@ -179,14 +178,14 @@ app.get('/api/auction-houses/:auctionHouseId', async (req, res) => {
       }
     });
 
-    res.json(response.data);  // Enviar los reinos al frontend
+    res.json(response.data);  // Send auction house data to the frontend
   } catch (error) {
-    console.error('Error al obtener la casa de subastas:', error);
-    res.status(500).json({ message: 'Error al obtener la casa de subastas de la API de TradeSkillMaster' });
+    console.error('Error fetching auction house:', error);
+    res.status(500).json({ message: 'Error fetching auction house data from the TradeSkillMaster API' });
   }
 });
 
-// Iniciar el servidor
+// Start the server
 app.listen(5000, () => {
-  console.log('Servidor intermedio corriendo en http://localhost:5000');
+  console.log('Proxy server running at http://localhost:5000');
 });

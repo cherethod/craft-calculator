@@ -1,17 +1,28 @@
-#root {
-  /* max-width: 1280px; */
-  width: 90%;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-
-}
-
 body {
   background-color: #222;  
+  max-height: 100vh;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  width: 100%;
   height: 100vh;
+  overflow-y: hidden;
+  margin: 0 auto;
+  text-align: center;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  place-items: center;
 }
 
 .btn {
@@ -27,8 +38,16 @@ body {
 
 .tools-btns {
   display: flex;
-  justify-content: center;
+  height: 100%;
   gap: 1rem;
+}
+
+.tools-btns button {
+  padding: 10px 15px;
+  height: max-content;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
 }
 
 #priceFixerCalculator > form {
@@ -53,4 +72,278 @@ margin-left: 1rem;
 
 .recipe_item {
   color: #fff;
+}
+
+#table_prices {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 2rem;
+
+}
+
+.items {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  gap: .5rem;
+  grid-template-rows: auto;
+  /* display: flex;
+  flex-direction: column;
+  gap: .5rem; */
+  margin-bottom: 2rem;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto 10% 2fr 1fr;
+  place-items: center;  
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+}
+
+/* Populate Bar */
+
+.progress-bar {
+  width: min-content;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: end;
+  margin-left: .5rem;
+}
+
+.progress-bar-fill {
+  padding: 0 4px;
+  transition: height 0.3s ease; /* Animación para el cambio de ancho */
+}
+
+.progress-bar-fill.very_high {
+  background-color: #f44336; /* Rojo */
+}
+
+.progress-bar-fill.high {
+  background-color: #ff9800; /* Naranja */
+}
+
+.progress-bar-fill.medium {
+  background-color: #ffc107; /* Amarillo */
+}
+
+.progress-bar-fill.low {
+  background-color: #8bc34a; /* Verde claro */
+}
+
+.progress-bar-fill.very_low {
+  background-color: #4caf50; /* Verde */
+}
+
+
+
+.item.recipe {
+  grid-template-columns: auto 10% 2fr 1.5fr 1fr 1fr;
+}
+
+.item.recipe ul {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: start;
+  list-style: none;
+  gap: 1rem;
+}
+
+.item.recipe ul li {
+  /* padding: 5px 10px; */
+  width: 30px;
+  height: 30px;
+  border: 1px solid #fff;
+  position: relative;
+}
+
+.item.recipe ul li span {
+  content: data-quantity;
+  position: absolute;
+  bottom: -3px;
+  right: 2px;
+  color: #ffffff;
+  font-weight: bold;
+  filter: grayscale(0%);
+  z-index: 2;
+}
+
+.item.recipe ul li img {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(90%);
+  cursor: pointer;
+}
+
+.item > img {
+  width: 30px;
+  height: 30px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  /* padding: 1rem 2rem; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: min-content;
+  background-color: #333;
+}
+
+header form {
+  margin: 0 2rem;
+  padding: 1rem 0;
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: end;
+  gap: 2rem;
+}
+
+header form .form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+header form label {  
+  text-align: left;
+}
+
+header form > .form-container > select {
+  padding: 10px 15px;
+}
+
+header form .search-input {
+  padding: 10px 15px;
+  min-width: 300px;
+  height: min-content;
+}
+
+header.profesion_header {
+  min-height: 15vh;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+header .alchemy_switcher {
+  /* display: flex; */
+  /* gap: 1rem; */
+  margin: 1rem 2rem;
+}
+
+header .mastery_selector {
+  display: flex;
+  gap: .2rem;
+}
+
+header .profesion_icon_container  {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+}
+
+header .profesion_icon_container > img {
+  border-radius: 5px;
+  border: 1px solid #fff;
+}
+
+header .profesion_icon_container > img:hover {
+  border-color: rgb(102, 225, 102);
+  box-shadow: 0 0 5px 2px rgb(102, 225, 102);
+}
+
+header .mastery_selector > .mastery_icon_container {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
+
+header .mastery_selector > .mastery_icon_container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+header .mastery_selector > .mastery_icon_container img:hover {
+  border-color: rgb(195, 252, 125);
+  box-shadow: 0 0 5px 2px rgb(195, 252, 125);
+}
+
+/* LOADER SECTION */
+
+.loader {
+  margin: 1rem 2rem;
+  width: 55px;
+  aspect-ratio: 1;
+  --g1:conic-gradient(from  90deg at top    3px left  3px,#0000 90deg,#fff 0);
+  --g2:conic-gradient(from -90deg at bottom 3px right 3px,#0000 90deg,#fff 0);
+  background:
+    var(--g1),var(--g1),var(--g1),var(--g1), 
+    var(--g2),var(--g2),var(--g2),var(--g2);
+  background-position: 0 0,100% 0,100% 100%,0 100%;
+  background-size: 25px 25px;
+  background-repeat: no-repeat;
+  animation: l11 1.5s infinite;
+}
+@keyframes l11 {
+  0%   {background-size:35px 15px,15px 15px,15px 35px,35px 35px}
+  25%  {background-size:35px 35px,15px 35px,15px 15px,35px 15px}
+  50%  {background-size:15px 35px,35px 35px,35px 15px,15px 15px}
+  75%  {background-size:15px 15px,35px 15px,35px 35px,15px 35px}
+  100% {background-size:35px 15px,15px 15px,15px 35px,35px 35px}
+}
+
+/* END LOADER SECTION */
+
+/* MEDIA QUERY SECTION */
+@media (max-width: 1400px) {
+  header form {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  header form .search-input {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 900px) {
+  header form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  header form .search-input {
+    grid-column: span 1;
+  }
+
+  header form .btn {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 720px) {
+  header form {
+    grid-template-columns: 1fr;
+  }
+  header form .btn {
+    grid-column: span 1;
+  }
 }

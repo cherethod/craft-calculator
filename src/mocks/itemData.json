@@ -34,6 +34,81 @@
             "name": ["Volatile Life", "Vida volátil"],
             "price": 3890064,
             "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_volatilelife_green.jpg"
+        },
+        "52327":{
+            "name": ["Volatile Earth", "Tierra volátil"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_volatileearth.jpg"
+        },
+        "52328": {
+            "name": ["Volatile Air", "Aire volátil"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_volatileair.jpg"
+        },
+        "52325": {
+            "name": ["Volatile Fire", "Fuego volátil"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_volatilefire.jpg"
+        },    
+        "52326": {
+            "name": ["Volatile Water", "Agua volátil"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_volatilewater.jpg"
+        },            
+        "52177": {
+            "name": ["Carnelian", "Cornalina" ],
+            "price": 1850057,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemsuperior4.jpg"
+        },
+        "52178": {
+            "name": ["Zephyrite", "Zefirita"],
+            "price": 3550060,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemsuperior6.jpg"
+        },
+        "52179": {
+            "name": ["Alicite", "Alicita"],
+            "price": 5990098,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemsuperior.jpg"
+        },
+        "52180": {
+            "name": ["Nightstone", "Piedra nocturna"],
+            "price": 13920067,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemsuperior3.jpg"
+        },
+        "52181": {
+            "name": ["Hessonite", "Hessonita"],
+            "price": 5990078,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemsuperior5.jpg"
+        },
+        "52182": {
+            "name": ["Jasper", "Jaspe"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemsuperior2.jpg"
+        },
+        "52185": {
+            "name": ["Elementium Ore", "Mena de elementium"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/item_pyriumore.jpg"
+        },
+        "52186": {
+            "name": ["Elementium Bar", "Barra de elementium"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_pyriumbar.jpg"        
+        },
+        "53038": {
+            "name": ["Obsidium Ore", "Mena de obsidium"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/item_elementiumore.jpg"
+        },
+        "54849": {
+            "name": ["Obsidium Bar", "Barra de obsidium"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_stone_15.jpg"
+        },
+        "51950": {
+            "name": ["Pyrium Bar", "Barra de pirita"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_pyriumbar_02.jpg"
         }
     },
 
@@ -42,6 +117,8 @@
             "name": ["Potion of Treasure Finding", "Poción de hallazgo de tesoros"],
             "price": 187990098,
             "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_potionsete.jpg",
+            "class": "Potion",
+            "units": 1,
             "reagents": {
                 "52983": 8,
                 "52984": 4,
@@ -53,6 +130,8 @@
             "name": ["Potion of Tol'vir", "Poción de tol'vir"],
             "price": 11240092,
             "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potiond_4.jpg",
+            "class": "Potion",
+            "units": 1,
             "reagents": {
                 "52984": 1,
                 "52988": 1
@@ -62,6 +141,8 @@
             "name": ["Potion of Concentration", "Poción de concentración"],
             "price": 11200067,
             "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potionc_3.jpg",
+            "class": "Potion",
+            "units": 1,
             "reagents": {
                 "52985": 2
             }
@@ -70,20 +151,149 @@
             "name": ["Volcanic Potion", "Poción volcánica"],
             "price": 24990099,
             "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potiond_3.jpg",
+            "class": "Potion",
+            "units": 1,
             "reagents": {
                 "52983": 1,
                 "52985": 1
             }
         },
+        "57192": {
+            "name": ["Mythical Mana Potion", "Poción de maná mítica"],
+            "price": 11200067,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potionc_2.jpg",
+            "class": "Potion",
+            "units": 1,
+            "reagents": { 
+                "52988": 1,
+                "52983": 1  
+            }
+        },
+        "57191": {
+            "name": ["Mythical Healing Potion", "Poción de sanación mítica"],
+            "price": 11200067,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potionc_1.jpg",
+            "class": "Potion",
+            "units": 1,
+            "reagents": {
+                "52987": 1
+            }
+        },        
         "58146": {
             "name": ["Golemblood Potion", "Poción de sangre de golem"],
             "price": 14990095,
             "image": "https://wow.zamimg.com/images/wow/icons/small/inv_potiond_1.jpg",
+            "class": "Potion",
+            "units": 1,
             "reagents": {
                 "52329": 1,
                 "52986": 1
             }
+        },
+        "52303": {
+            "name": ["Shadowspirit Diamond", "Diamante de espíritu de las Sombras"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_metagemuncut_b.jpg",
+            "class": "Transmute",
+            "units": 2,
+            "reagents": {
+                "52177": 3,
+                "52178": 3,
+                "52179": 3,
+                "52180": 3,
+                "52181": 3,
+                "52182": 3
+            }
+        },
+        "52191": {
+            "name": ["Ocean Sapphire", "Zafiro oceánico"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemnormal2.jpg",
+            "class": "Transmute",
+            "units": 1,
+            "reagents": {
+                "52985": 3,
+                "52178": 3
+            }
+        },
+        "52192": {
+            "name": ["Dream Emerald", "Esmeralda onírica"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemnormal1.jpg",
+            "class": "Transmute",
+            "units": 1,
+            "reagents": {
+                "52984": 3,
+                "52182": 3
+            }
+        },
+        "52193": {
+            "name": ["Ember Topaz", "Topacio de ascuas"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemnormal.jpg",
+            "class": "Transmute",
+            "units": 1,
+            "reagents": {
+                "52983": 3,
+                "52181": 3
+            }
+        },
+        "52194": {
+            "name": ["Demonseye", "Ojo de demonio"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemnormal4.jpg",
+            "class": "Transmute",
+            "units": 1,
+            "reagents": {
+                "52987": 3,
+                "52180": 3
+            }
+        },        
+        "52195": {
+            "name": ["Amberjewel", "Joya de ámbar"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemnormal5.jpg",
+            "class": "Transmute",
+            "units": 1,
+            "reagents": {
+                "52988": 3,
+                "52179": 3
+            }
+        },
+        "52190": {
+            "name": ["Inferno Ruby", "Rubí inferno"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_uncutgemnormal3.jpg",
+            "class": "Transmute",
+            "units": 1,
+            "reagents": {
+                "52986": 3,
+                "52177": 3
+            }
+        },
+        "51950": {
+            "name": ["Pyrium Bar", "Barra de pirita"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_pyriumbar_02.jpg",
+            "class": "Transmute",
+            "units": 1,
+            "reagents": {
+                "52186": 1,
+                "52327": 1
+            }
+        },
+        "58480": {
+            "name": ["Truegold", "Veraoro"],
+            "price": 1890095,
+            "image": "https://wow.zamimg.com/images/wow/icons/small/inv_misc_truegold.jpg",
+            "class": "Transmute",
+            "units": 1,
+            "reagents": {
+                "52326": 10,
+                "52325": 10,
+                "52328": 10,
+                "51950": 3
+            }
         }
-
     }
 }
