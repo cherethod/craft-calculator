@@ -101,7 +101,6 @@ function App() {
       {
         !toolActive && (
           <div className='tools-btns'>
-            {/* <button className='btn' onClick={() => setToolActive('recipe-creator')}>Create New Recipe</button>  */}
             <button className='btn' onClick={() => setToolActive('price-fixer')}>Craft Profit Checker</button> 
           </div>
         )
@@ -118,7 +117,6 @@ function App() {
           <>
             <h2>Item found</h2>
             <div className='item'>
-              {/* <img src={items.find(i => i.id == searchItem.itemId).image} alt={searchedItem.name} /> */}
               <h3>{searchedItem.name}</h3>
               <p>{Math.floor(Number(searchedItem.minBuyout) / 10000)}g {Math.floor((Number(searchedItem.minBuyout) % 10000) / 100)}s {Number(searchedItem.minBuyout) % 100}c</p>
             </div>

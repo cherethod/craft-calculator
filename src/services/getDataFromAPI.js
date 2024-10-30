@@ -8,7 +8,6 @@ export const getAllRealms = async (hangleRegionsDataChange) => {
         newRealms.push(data[realm]);
       }
       hangleRegionsDataChange(newRealms);  // Save regions data
-      // console.log('Regions:', data);  // Log for retrieved regions
     } catch (error) {
       console.error('Error fetching regions from APP:', error);  // Error while fetching regions
     }

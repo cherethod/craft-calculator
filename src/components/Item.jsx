@@ -21,14 +21,6 @@ const Item = ({ item, items, isLoadingData }) => {
         console.log(`item: ${item.name[1]} - totalCost: ${totalCost} - price: ${item.price} - units: ${item.units}`);
         setProfit(item.price * item.units - totalCost);
     }, [item, items]);
-
-    const getProgressValue = () => {
-        if (item.numAuctions < 100) {
-            return item.numAuctions;
-        } else {
-            return 100;
-        }
-    }
     
     // Determina el ancho de la barra basado en el valor de numAuctions
     const progressHeight = Math.min(item.numAuctions, 100); // Asegura que el valor no supere 100%
@@ -50,10 +42,6 @@ const Item = ({ item, items, isLoadingData }) => {
         ) : (
             <div className={`item ${item.reagents ? 'recipe' : ''}`}>
             <>
-            
-                {/* <div className="item_populate">
-                    <progress value={getProgressValue()} max="100" className={getNumAuctionsClass(item.numAuctions)}></progress>
-                </div> */}
                 <div className="progress-bar">
                 <div
                     className={`progress-bar-fill ${getNumAuctionsClass(item.numAuctions)}`}
