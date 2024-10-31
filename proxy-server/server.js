@@ -18,7 +18,7 @@ const checkAuth = async () => {
   if (!accessToken || currentTime >= tokenExpiresAt) {
     try {
       const response = await axios.post('https://auth.tradeskillmaster.com/oauth2/token', {
-        client_id: 'c260f00d-1071-409a-992f-dda2e5498536',
+        client_id: API_CLIENT_ID,
         grant_type: 'api_token',
         scope: 'app:realm-api app:pricing-api',
         token: 'aa8e585e-7464-480e-afc7-c97657dff57e'
@@ -37,7 +37,7 @@ const checkAuth = async () => {
 app.post('/api/auth', async (req, res) => {
   try {
     const response = await axios.post('https://auth.tradeskillmaster.com/oauth2/token', {
-      client_id: 'c260f00d-1071-409a-992f-dda2e5498536',
+      client_id: API_CLIENT_ID,,
       grant_type: 'api_token',
       scope: 'app:realm-api app:pricing-api',
       token: 'aa8e585e-7464-480e-afc7-c97657dff57e'
