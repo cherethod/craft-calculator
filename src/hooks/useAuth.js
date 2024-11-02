@@ -1,47 +1,44 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
-const useAuth = () => {
-    const [token, setToken] = useState('');
-    const [expiresAt, setExpiresAt] = useState(0);
+const useAuth = () => { 
+    const [accessToken, setAccessToken] = useState('');
+    const [tokenExpiresAt, setTokenExpiresAt] = useState(0);
 
-    const saveToken = (token, expiresAt) => {
-        localStorage.setItem('access_token', token);
-        localStorage.setItem('expires_at', expiresAt);
-        setToken(token);
-        setExpiresAt(expiresAt);
+    const getAuthToken = async () => {
+        const currentTime = Math.floor(Date.now() / 1000);
+
+        if (!accessToken || currentTime >= tokenExpiresAt) {
+            try {
+                const response = await axios.post(
+                    'https://auth.tradeskillmaster.com/oauth2/token',
+                    {
+                        client_id: 'c260f00d-1071-409a-992f-dda2e5498536',
+                        grant_type: 'api_token',
+                        scope: 'app:realm-api app:pricing-api',
+                        token: 'aa8e585e-7464-480e-afc7-c97657dff57e'
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        timeout: 10000
+                    }
+                );
+
+                setAccessToken(response.data.access_token);
+                setTokenExpiresAt(currentTime + response.data.expires_in);
+                return response.data.access_token; // Return the new token directly
+            } catch (error) {
+                console.error('Error authenticating:', error);
+                throw new Error('Error authenticating with the TradeSkillMaster API');
+            }
+        }
+
+        return accessToken; // If the token is valid, return it
     };
 
-    const getAuth = async () => {
-        try {
-        const res = await fetch('http://localhost:5000/api/auth', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            }
-        });
-        const data = await res.json();
-        console.log('Nuevo token obtenido: ',data.access_token);
-        saveToken(data.access_token, data.expires_at);
-        } catch (error) {
-        console.error('Error:', error);
-        }
-    }
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem('access_token');
-        const storedExpiresAt = localStorage.getItem('expires_at');
-    
-        if (storedToken && storedExpiresAt > Date.now() / 1000) {
-          setToken(storedToken);
-          setExpiresAt(storedExpiresAt);
-          console.log('Token cargado desde localstorage: ', storedToken);
-        } else {
-          getAuth();
-        }
-          
-      }, []);
-
-    return { token, expiresAt, getAuth };
+    return { accessToken, getAuthToken };
 };
 
 export default useAuth;
