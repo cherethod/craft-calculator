@@ -10,29 +10,13 @@ const useAuth = () => {
 
         if (!accessToken || currentTime >= tokenExpiresAt) {
             try {
-                const response = await axios.post(
-                    'https://auth.tradeskillmaster.com/oauth2/token',
-                    {
-                        client_id: 'c260f00d-1071-409a-992f-dda2e5498536',
-                        grant_type: 'api_token',
-                        scope: 'app:realm-api app:pricing-api',
-                        token: 'aa8e585e-7464-480e-afc7-c97657dff57e'
-                    },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        timeout: 10000
-                    }
-                );
-
+                const response = await axios.post('/api/auth'); // Aquí usamos el endpoint intermedio
                 setAccessToken(response.data.access_token);
-                setTokenExpiresAt(currentTime + response.data.expires_in);
-                return response.data.access_token; // Return the new token directly
-            } catch (error) {
-                console.error('Error authenticating:', error);
-                throw new Error('Error authenticating with the TradeSkillMaster API');
-            }
+                return response.data.access_token;
+             } catch (error) {
+                console.error("Error al obtener el token de autenticación:", error);
+                throw new Error("Error al autenticar con la API de TradeSkillMaster");
+             }
         }
 
         return accessToken; // If the token is valid, return it
