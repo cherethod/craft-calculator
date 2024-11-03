@@ -8,9 +8,9 @@ const ItemProvider = ({ children }) => {
     const [items, setItems] = useState([]);
     const { 
         token, 
-        region, 
-        realm, 
-        auctionHouseId, 
+        selectedRegion, 
+        selectedRealm, 
+        selectedAuctionHouse, 
         handleTokenChange, 
         handleRegionChange, 
         handleRealmChange, 
@@ -39,7 +39,7 @@ const ItemProvider = ({ children }) => {
                     name: itemData.name,
                     reagents: reagents,
                     image: itemData.image,
-                    price: getAuctionPrices(auctionHouseId, item),
+                    price: getAuctionPrices(selectedAuctionHouse, item),
                 };
                 newItems.push(newItem);
                 console.log('newItem: ',newItem);
@@ -53,7 +53,7 @@ const ItemProvider = ({ children }) => {
                     name: reagentData.name,
                     reagents: [],
                     image: reagentData.image,
-                    price: getAuctionPrices(auctionHouseId, item),
+                    price: getAuctionPrices(selectedAuctionHouse, item),
                 };
                 newItems.push(newItem);
                 console.log('newItem: ',newItem);
@@ -61,7 +61,6 @@ const ItemProvider = ({ children }) => {
             }
             setItems(newItems);
         }
-        console.log('token: ',token);
         const realmsResponse = getRealms();
         console.log('realmsResponse: ',realmsResponse);
         

@@ -3,9 +3,12 @@ import useAuth from "./useAuth";
 
 const useAPI = () => {
     const [token, setToken] = useState(null);
-    const [region, setRegion] = useState(null);
-    const [realm, setRealm] = useState(null);
-    const [auctionHouseId, setAuctionHouseId] = useState(446);
+    const [selectedRegion, setSelectedRegion] = useState(null);
+    const [selectedRealm, setSelectedRealm] = useState(null);
+    const [selectedAuctionHouse, setSelectedAuctionHouse] = useState(446);
+    const [regions, setRegions] = useState([]);
+    const [realms, setRealms] = useState([]);
+    const [auctionHouses, setAuctionHouses] = useState([]);
     const { accessToken, getAuthToken } = useAuth();
 
     useEffect(() => {
@@ -27,24 +30,40 @@ const useAPI = () => {
                 
                 setToken(authToken);
             } 
+        }        
+    }, []);
+
+    useEffect(() => {
+        if (token) {
+            getRealms()
+                .then((regions) => {
+                    console.log('Regions:', regions);
+                    
+                })
+                .catch((error) => {
+                    console.error('Error getting regions:', error);
+                });
         }
-        
     }, [token]);
+
+
+
+
 
         const handleTokenChange = (newToken) => {
             setToken(newToken);
         };
 
         const handleRegionChange = (newRegion) => {
-            setRegion(newRegion);
+            setSelectedRegion(newRegion);
         };
 
         const handleRealmChange = (newRealm) => {
-            setRealm(newRealm);
+            setSelectedRealm(newRealm);
         };
 
         const handleAuctionHouseIdChange = (newAuctionHouseId) => {
-            setAuctionHouseId(newAuctionHouseId);
+            setSelectedAuctionHouse(newAuctionHouseId);
         };
 
         const getAuctionPrices = async (auctionHouseId, itemId) => {
@@ -67,11 +86,13 @@ const useAPI = () => {
             }
           }
 
+        
+
         return {
             token,
-            region,
-            realm,
-            auctionHouseId,
+            selectedRegion,
+            selectedRealm,
+            selectedAuctionHouse,
             handleTokenChange,
             handleRegionChange,
             handleRealmChange,
