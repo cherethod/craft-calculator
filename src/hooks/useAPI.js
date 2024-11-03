@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useAuth from "./useAuth";
+import useAuth from "./useAuth.js";
 import realmResponse from '../mocks/realmsResponse.json';
 
 const useAPI = () => {
@@ -10,37 +10,26 @@ const useAPI = () => {
     const [regions, setRegions] = useState([]);
     const [realms, setRealms] = useState([]);
     const [auctionHouses, setAuctionHouses] = useState([]);
-    const { accessToken, getAuthToken, tokenExpiresAt } = useAuth();
+    const { accessToken, getAuthToken, setTokenExpiresAt } = useAuth();
 
     useEffect(() => {
         if (!token) {
-            const authToken = getAuthToken().then((newToken) => {
-                return newToken;
-            }).catch((error) => {
-                console.error('Error getting token:', error);
+            const storedToken = localStorage.getItem('token');
+            if (storedToken) {
+                setToken(storedToken);
             }
-            );
-            setToken(authToken);
-            console.log('token: ',token);
-
-            // const storedToken = localStorage.getItem('token');
-            // const tokenExpired = localStorage.getItem('tokenExpiresAt');
-            // if (storedToken && Math.floor(Date.now() / 1000) < tokenExpiresAt) {
-            //     setToken(storedToken);
-            // }
-            // else {
-            //     const authToken = getAuthToken()
-            //         .then((newToken) => {
-            //             setToken(newToken);
-            //             localStorage.setItem('token', newToken);
-            //             localStorage.setItem('tokenExpiresAt', Math.floor(Date.now() / 1000) + 86400);
-            //         })
-            //         .catch((error) => {
-            //             console.error('Error getting token:', error);
-            //         });
+            else {
+                const authToken = getAuthToken()
+                    .then((newToken) => {
+                        setToken(newToken);
+                        localStorage.setItem('token', newToken);
+                    })
+                    .catch((error) => {
+                        console.error('Error getting token:', error);
+                    });
                 
-            //     setToken(authToken);
-            // } 
+                setToken(authToken);
+            } 
         }        
     }, []);
 
