@@ -23,5 +23,5 @@ export async function getAccessToken() {
       }
    }
 
-   return accessToken;
+   return accessToken, tokenExpiresAt;
 }
