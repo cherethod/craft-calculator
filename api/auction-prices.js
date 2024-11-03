@@ -1,23 +1,31 @@
+// /api/auction-prices.js
 import axios from 'axios';
-import { getAccessToken } from './authHelper';
+import { getAccessToken } from './authHelper.mjs';
 
 export default async function handler(req, res) {
-   const { auctionHouseId, itemId } = req.query;
-
    if (req.method === 'GET') {
+      const { auctionHouseId, itemId } = req.query;
+
       try {
+         // Obtener el token de acceso centralizado
          const accessToken = await getAccessToken();
+
+         // Hacer la solicitud a la API con el token
          const response = await axios.get(`https://pricing-api.tradeskillmaster.com/ah/${auctionHouseId}/item/${itemId}`, {
-            headers: { 'Authorization': `Bearer ${accessToken}` }
+            headers: {
+               'Authorization': `Bearer ${accessToken}`
+            }
          });
-        console.log('response: ',response);
-        console.log('data: ', response.data);
-        
-        
-         res.status(200).json(response.data);
+
+         res.status(200).json(response.data);  // Responder con los datos de la API
       } catch (error) {
          console.error('Error fetching prices:', error);
-         res.status(500).json({ message: 'Error fetching prices' });
+
+         // Responder con un mensaje específico si el token falla o cualquier otro error
+         const status = error.response ? error.response.status : 500;
+         res.status(status).json({
+            message: error.message || 'Error fetching prices from the TradeSkillMaster API'
+         });
       }
    } else {
       res.setHeader('Allow', ['GET']);
