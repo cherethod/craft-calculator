@@ -10,26 +10,37 @@ const useAPI = () => {
     const [regions, setRegions] = useState([]);
     const [realms, setRealms] = useState([]);
     const [auctionHouses, setAuctionHouses] = useState([]);
-    const { accessToken, getAuthToken } = useAuth();
+    const { accessToken, getAuthToken, tokenExpiresAt } = useAuth();
 
     useEffect(() => {
         if (!token) {
-            const storedToken = localStorage.getItem('token');
-            if (storedToken) {
-                setToken(storedToken);
+            const authToken = getAuthToken().then((newToken) => {
+                return newToken;
+            }).catch((error) => {
+                console.error('Error getting token:', error);
             }
-            else {
-                const authToken = getAuthToken()
-                    .then((newToken) => {
-                        setToken(newToken);
-                        localStorage.setItem('token', newToken);
-                    })
-                    .catch((error) => {
-                        console.error('Error getting token:', error);
-                    });
+            );
+            setToken(authToken);
+            console.log('token: ',token);
+
+            // const storedToken = localStorage.getItem('token');
+            // const tokenExpired = localStorage.getItem('tokenExpiresAt');
+            // if (storedToken && Math.floor(Date.now() / 1000) < tokenExpiresAt) {
+            //     setToken(storedToken);
+            // }
+            // else {
+            //     const authToken = getAuthToken()
+            //         .then((newToken) => {
+            //             setToken(newToken);
+            //             localStorage.setItem('token', newToken);
+            //             localStorage.setItem('tokenExpiresAt', Math.floor(Date.now() / 1000) + 86400);
+            //         })
+            //         .catch((error) => {
+            //             console.error('Error getting token:', error);
+            //         });
                 
-                setToken(authToken);
-            } 
+            //     setToken(authToken);
+            // } 
         }        
     }, []);
 

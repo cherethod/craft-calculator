@@ -13,6 +13,10 @@ const useAuth = () => {
                 const response = await axios.post('https://craft-calculator-puce.vercel.app/api/auth'); // Aquí usamos el endpoint intermedio
                 setAccessToken(response.data.access_token);
                 setTokenExpiresAt(currentTime + response.data.expires_in);
+                console.log("Token de autenticación obtenido:", response.data.access_token);
+                console.log("Token expira en:", response.data.expires_in, "segundos");
+                                
+                
                 return response.data.access_token;
              } catch (error) {
                 console.error("Error al obtener el token de autenticación:", error);
@@ -23,7 +27,7 @@ const useAuth = () => {
         return accessToken; // If the token is valid, return it
     };
 
-    return { accessToken, getAuthToken };
+    return { accessToken, getAuthToken, tokenExpiresAt };
 };
 
 export default useAuth;
