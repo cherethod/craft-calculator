@@ -1,6 +1,6 @@
 // /api/auction-prices.js
 import axios from 'axios';
-import { getAccessToken } from './authHelper.mjs';
+import { getAccessToken } from './auth';
 
 export default async function handler(req, res) {
    if (req.method === 'GET') {
