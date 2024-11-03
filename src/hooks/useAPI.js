@@ -35,6 +35,8 @@ const useAPI = () => {
 
     useEffect(() => {
         if (token) {
+            console.log('Effect getRealms initiated');
+            
             getRealms()
                 .then((regions) => {
                     const newRegions = [];
