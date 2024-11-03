@@ -16,6 +16,7 @@ const ItemProvider = ({ children }) => {
         handleRealmChange, 
         handleAuctionHouseIdChange,
         getAuctionPrices,
+        getRealms,
     } = useAPI();
     // Developement effetc to fullify the items array
     useEffect(() => {
@@ -38,13 +39,15 @@ const ItemProvider = ({ children }) => {
                     name: itemData.name,
                     reagents: reagents,
                     image: itemData.image,
-                    price: getAuctionPrices(auctionHouseId, item),
+                    // price: getAuctionPrices(auctionHouseId, item),
                 };
                 newItems.push(newItem);
             }
             setItems(newItems);
         }
         console.log('token: ',token);
+        const realmsResponse = getRealms();
+        console.log('realmsResponse: ',realmsResponse);
         
         
     }, [items]);
