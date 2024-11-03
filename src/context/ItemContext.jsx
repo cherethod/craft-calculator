@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import ItemData from "../mocks/itemData.json";
 import useAPI from "../hooks/useAPI";
-import useDictionary from "../hooks/useDictionary";
 
 const ItemContext = createContext();
 
@@ -20,7 +19,6 @@ const ItemProvider = ({ children }) => {
         getRealms,
     } = useAPI();
 
-    const { dictionary } = useDictionary();
 
     // Developement effetc to fullify the items array
     useEffect(() => {
@@ -69,11 +67,11 @@ const ItemProvider = ({ children }) => {
         console.log('realmsResponse: ',realmsResponse);
         
         
-    }, [items]);
+    }, []);
 
 
     return (
-        <ItemContext.Provider value={{items, dictionary }}>
+        <ItemContext.Provider value={{ items }}>
         {children}
         </ItemContext.Provider>
     );

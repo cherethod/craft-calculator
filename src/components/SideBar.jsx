@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { ItemContext } from "../context/ItemContext";
+import { useContext } from "react";
 import useDictionary from "../hooks/useDictionary";
+import { ItemContext } from "../context/ItemContext";
 
 const SideBar = () => {
+    const { dictionary, selectedLanguage, handleLanguageChange } = useDictionary();
     const {items} = useContext(ItemContext);
-    const {selectedLanguage, handleLanguageChange, dictionary} = useDictionary();
-  
-
     return (
         <aside>
             <div className="language_selector">
@@ -22,9 +20,14 @@ const SideBar = () => {
                 list="items-list"
             />
             <datalist id="items-list">
-                {Object.values(items).map((item) => (
-                    <option key={item.id} value={selectedLanguage == 'es' ? item.name[1] : item.name[0]} />
-                ))}
+            {
+            Object.values(items.reduce((acc, item) => {
+                acc[item.id] = item;
+                return acc;
+            }, {})).map((item) => (
+                <option key={`item-datalist-${item.id}`} value={selectedLanguage === 'es' ? item.name[1] : item.name[0]} />
+            ))
+            }
             </datalist>
            </div>
             <ul>

@@ -3,5 +3,12 @@
     "searchItem": "Search Item",
     "prices": "Prices",
     "craftProfit": "Crafts Profit",
-    "justiceVendor": "Justice Vendor"
+    "justiceVendor": "Justice Vendor",
+    "region": "Region",
+    "selectRegion": "Select a Region",
+    "realm": "Realm",
+    "selectRealm": "Select a Realm",
+    "auctionHouse": "Auction House",
+    "selectAuctionHouse": "Select Auction House",
+    "save": "Save"
 }
