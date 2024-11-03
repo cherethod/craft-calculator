@@ -30,7 +30,7 @@ const ItemProvider = ({ children }) => {
 
     // Developement effetc to fullify the items array
     useEffect(() => {
-        if (items.length === 0) {
+        if (items.length === 0 && selectedRegion && selectedRealm && selectedAuctionHouse) {
             const newItems = [];
 
             for (let item in ItemData.items) {
