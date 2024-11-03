@@ -5,17 +5,13 @@ import { ItemContext } from './context/ItemContext';
 import SearchSettings from './components/SearchSettings';
 
 function App() {
-  const [selectedLanguage, setSelectedLanguage] = useState('es')
   const {selectedRegion, selectedRealm, selectedAuctionHouse} = useContext(ItemContext);
 
-  const handleLanguageChange = (lang) => {
-    setSelectedLanguage(lang)
-  }
 
 
   return (
     <>
-    <SideBar selectedLanguage={selectedLanguage} handleLanguageChange={handleLanguageChange} />
+    <SideBar />
     <main>
       {
         !selectedRegion && !selectedRealm && !selectedAuctionHouse ? (

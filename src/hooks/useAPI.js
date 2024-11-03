@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
+import realmResponse from '../mocks/realmsResponse.json';
 
 const useAPI = () => {
     const [token, setToken] = useState(null);
     const [selectedRegion, setSelectedRegion] = useState(null);
     const [selectedRealm, setSelectedRealm] = useState(null);
-    const [selectedAuctionHouse, setSelectedAuctionHouse] = useState(446);
+    const [selectedAuctionHouse, setSelectedAuctionHouse] = useState(null);
     const [regions, setRegions] = useState([]);
     const [realms, setRealms] = useState([]);
     const [auctionHouses, setAuctionHouses] = useState([]);
@@ -26,7 +27,6 @@ const useAPI = () => {
                     .catch((error) => {
                         console.error('Error getting token:', error);
                     });
-                console.log(authToken);
                 
                 setToken(authToken);
             } 
@@ -37,14 +37,50 @@ const useAPI = () => {
         if (token) {
             getRealms()
                 .then((regions) => {
-                    console.log('Regions:', regions);
+                    const newRegions = [];
+                    for (let region in regions.items) {
+                        
+                        newRegions.push(regions.items[region]);
+                    }
                     
+                    setRegions(newRegions);
                 })
                 .catch((error) => {
                     console.error('Error getting regions:', error);
                 });
         }
-    }, [token]);
+    }, []);
+
+    useEffect(() => {
+        if (selectedRegion) {
+            console.log('selectedRegion: ',selectedRegion);
+            
+            const newRealms = [...selectedRegion.realms];
+            setRealms(newRealms);
+            
+            // for (let realm in selectedRegion.realms) {
+            //     console.log('realm: ',selectedRegion.realms[realm]);
+                
+            //     newRealms.push(selectedRegion.realms[realm]);
+            // }
+            // setRealms(newRealms);
+        }
+    }, [selectedRegion]);
+
+    // useEffect(() => {
+    //     if (realms) {
+    //         console.log('realms: ',realms);
+            
+    //         const newAuctionHouses = [...selectedRealm.auctionHouses];
+    //         log('newAuctionHouses: ',newAuctionHouses);
+    //         // for (let auctionHouse in selectedRealm.auctionHouses) {
+    //         //     console.log('auctionHouse: ',selectedRealm.auctionHouses[auctionHouse]);
+                
+    //         //     newAuctionHouses.push(selectedRealm.auctionHouses[auctionHouse]);
+    //         // }
+    //         // setAuctionHouses(newAuctionHouses);
+    //     }
+    // }, [selectedRegion, realms]);
 
 
 
@@ -55,11 +91,13 @@ const useAPI = () => {
         };
 
         const handleRegionChange = (newRegion) => {
-            setSelectedRegion(newRegion);
+            setSelectedRegion(regions[newRegion - 1]);
         };
 
         const handleRealmChange = (newRealm) => {
-            setSelectedRealm(newRealm);
+            console.log('selectedRegion: ',selectedRegion);
+            console.log('newRealm: ',newRealm);
+            
         };
 
         const handleAuctionHouseIdChange = (newAuctionHouseId) => {
@@ -84,6 +122,8 @@ const useAPI = () => {
             } catch (error) {
               console.error('Error fetching realms:', error);  // Error while fetching realms
             }
+
+            // return realmResponse;
           }
 
         
@@ -93,6 +133,8 @@ const useAPI = () => {
             selectedRegion,
             selectedRealm,
             selectedAuctionHouse,
+            regions,
+            realms,
             handleTokenChange,
             handleRegionChange,
             handleRealmChange,

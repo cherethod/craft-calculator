@@ -1,16 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 import ItemData from "../mocks/itemData.json";
 import useAPI from "../hooks/useAPI";
+import useDictionary from "../hooks/useDictionary";
 
 const ItemContext = createContext();
 
 const ItemProvider = ({ children }) => {
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState([]);    
+
     const { 
         token, 
         selectedRegion, 
         selectedRealm, 
         selectedAuctionHouse, 
+        regions,
         handleTokenChange, 
         handleRegionChange, 
         handleRealmChange, 
@@ -18,6 +21,13 @@ const ItemProvider = ({ children }) => {
         getAuctionPrices,
         getRealms,
     } = useAPI();
+
+    const {
+        dictionary,
+        selectedLanguage,
+        handleLanguageChange
+    } = useDictionary();
+
     // Developement effetc to fullify the items array
     useEffect(() => {
         if (items.length === 0) {
@@ -42,7 +52,6 @@ const ItemProvider = ({ children }) => {
                     price: getAuctionPrices(selectedAuctionHouse, item),
                 };
                 newItems.push(newItem);
-                console.log('newItem: ',newItem);
                 
             }
 
@@ -56,20 +65,19 @@ const ItemProvider = ({ children }) => {
                     price: getAuctionPrices(selectedAuctionHouse, item),
                 };
                 newItems.push(newItem);
-                console.log('newItem: ',newItem);
                 
             }
             setItems(newItems);
         }
         const realmsResponse = getRealms();
-        console.log('realmsResponse: ',realmsResponse);
         
         
     }, [items]);
 
 
+
     return (
-        <ItemContext.Provider value={{items}}>
+        <ItemContext.Provider value={{items, regions, dictionary}}>
         {children}
         </ItemContext.Provider>
     );

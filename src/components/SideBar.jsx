@@ -1,17 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ItemContext } from "../context/ItemContext";
-import es_dic from '../locales/es.json';
-import en_dic from '../locales/en.json';
+import useDictionary from "../hooks/useDictionary";
 
-const SideBar = ({selectedLanguage, handleLanguageChange}) => {
-    const {items} = useContext(ItemContext);
-    const [dictionary, setDictionary] = useState(null);
-
-    useEffect(() => {
-        if (selectedLanguage) {
-            setDictionary(selectedLanguage === 'es' ? es_dic : en_dic);
-        }
-    }, [selectedLanguage]);
+const SideBar = () => {
+    const {items, dictionary} = useContext(ItemContext);
+   const {selectedLanguage, handleLanguageChange} = useDictionary();
 
     return (
         <aside>

@@ -3,5 +3,9 @@
     "searchItem": "Buscar objeto",
     "prices": "Precios",
     "craftProfit": "Beneficio de profesión",
-    "justiceVendor": "Vendedor de justicia"
+    "justiceVendor": "Vendedor de justicia",
+    "selectRegion": "Seleccionar región",
+    "selectRealm": "Seleccionar reino",
+    "selectAuctionHouse": "Seleccionar casa de subastas",
+    "save": "Guardar"
 }
