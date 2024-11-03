@@ -14,11 +14,11 @@ const useAPI = () => {
 
     useEffect(() => {
         if (!token) {
-            const storedToken = localStorage.getItem('token');
-            if (storedToken) {
-                setToken(storedToken);
-            }
-            else {
+            // const storedToken = localStorage.getItem('token');
+            // if (storedToken) {
+            //     setToken(storedToken);
+            // }
+            // else {
                 const authToken = getAuthToken()
                     .then((newToken) => {
                         setToken(newToken);
@@ -30,7 +30,7 @@ const useAPI = () => {
                 
                 setToken(authToken);
             } 
-        }        
+        // }        
     }, []);
 
     useEffect(() => {
