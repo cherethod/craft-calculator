@@ -5,7 +5,7 @@ const useAPI = () => {
     const [token, setToken] = useState(null);
     const [region, setRegion] = useState(null);
     const [realm, setRealm] = useState(null);
-    const [auctionHouseId, setAuctionHouseId] = useState(null);
+    const [auctionHouseId, setAuctionHouseId] = useState(446);
     const { accessToken, getAuthToken } = useAuth();
 
     useEffect(() => {
@@ -47,6 +47,16 @@ const useAPI = () => {
             setAuctionHouseId(newAuctionHouseId);
         };
 
+        const getAuctionPrices = async (auctionHouseId, itemId) => {
+            try {
+              const res = await fetch(`https://craft-calculator-puce.vercel.app/api/auction-prices?auctionHouseId=${auctionHouseId}&itemId=${itemId}`);
+              const data = await res.json();
+              return data;
+            } catch (error) {
+              console.error('Error fetching auction prices:', error);  // Error while fetching auction prices
+            }
+          };
+
         return {
             token,
             region,
@@ -55,7 +65,8 @@ const useAPI = () => {
             handleTokenChange,
             handleRegionChange,
             handleRealmChange,
-            handleAuctionHouseIdChange
+            handleAuctionHouseIdChange,
+            getAuctionPrices,
         };
         
     }

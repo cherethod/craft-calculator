@@ -6,7 +6,17 @@ const ItemContext = createContext();
 
 const ItemProvider = ({ children }) => {
     const [items, setItems] = useState([]);
-    const { token, region, realm, auctionHouseId, handleTokenChange, handleRegionChange, handleRealmChange, handleAuctionHouseIdChange} = useAPI();
+    const { 
+        token, 
+        region, 
+        realm, 
+        auctionHouseId, 
+        handleTokenChange, 
+        handleRegionChange, 
+        handleRealmChange, 
+        handleAuctionHouseIdChange,
+        getAuctionPrices,
+    } = useAPI();
     // Developement effetc to fullify the items array
     useEffect(() => {
         if (items.length === 0) {
@@ -28,13 +38,13 @@ const ItemProvider = ({ children }) => {
                     name: itemData.name,
                     reagents: reagents,
                     image: itemData.image,
+                    price: getAuctionPrices(auctionHouseId, item),
                 };
                 newItems.push(newItem);
             }
             setItems(newItems);
         }
-        console.log(items);
-        console.log(token);
+        console.log('token: ',token);
         
         
     }, [items]);
