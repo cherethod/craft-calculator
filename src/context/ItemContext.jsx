@@ -39,9 +39,25 @@ const ItemProvider = ({ children }) => {
                     name: itemData.name,
                     reagents: reagents,
                     image: itemData.image,
-                    // price: getAuctionPrices(auctionHouseId, item),
+                    price: getAuctionPrices(auctionHouseId, item),
                 };
                 newItems.push(newItem);
+                console.log('newItem: ',newItem);
+                
+            }
+
+            for (let item in ItemData.reagents) {
+                const reagentData = ItemData.reagents[item];
+                const newItem = {
+                    id: item,
+                    name: reagentData.name,
+                    reagents: [],
+                    image: reagentData.image,
+                    price: getAuctionPrices(auctionHouseId, item),
+                };
+                newItems.push(newItem);
+                console.log('newItem: ',newItem);
+                
             }
             setItems(newItems);
         }
