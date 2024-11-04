@@ -29,9 +29,9 @@ const SearchSettings = () => {
     };
 
     return (
-        <form className="search_settings" onSubmit={() => handleSelectMode("default)")}>
+        <form className="search_settings" onSubmit={handleSubmitSearchSettings}>
             <div className="close_btn">
-                <button onClick={handleSubmitSearchSettings}>X</button>
+                <button onClick={()=> handleSelectMode("default")}>X</button>
             </div>
             <div className="input_container">
                 <label htmlFor="region">{dictionary && dictionary["region"]}</label>
