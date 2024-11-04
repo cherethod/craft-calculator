@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import ItemData from "../mocks/itemData.json";
 import useAPI from "../hooks/useAPI";
+import useDictionary from "../hooks/useDictionary";
 
 const ItemContext = createContext();
 
@@ -18,6 +19,12 @@ const ItemProvider = ({ children }) => {
         getAuctionPrices,
         getRealms,
     } = useAPI();
+
+    const {
+        dictionary,
+        selectedLanguage,
+        handleLanguageChange
+    } = useDictionary();
 
 
     // Developement effetc to fullify the items array
@@ -69,7 +76,7 @@ const ItemProvider = ({ children }) => {
 
 
     return (
-        <ItemContext.Provider value={{ items }}>
+        <ItemContext.Provider value={{ items, dictionary }}>
         {children}
         </ItemContext.Provider>
     );

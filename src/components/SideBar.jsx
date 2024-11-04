@@ -3,8 +3,8 @@ import useDictionary from "../hooks/useDictionary";
 import { ItemContext } from "../context/ItemContext";
 
 const SideBar = () => {
-    const { dictionary, selectedLanguage, handleLanguageChange } = useDictionary();
-    const {items} = useContext(ItemContext);
+    const { selectedLanguage, handleLanguageChange } = useDictionary();
+    const {items, dictionary} = useContext(ItemContext);
     return (
         <aside>
             <div className="language_selector">

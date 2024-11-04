@@ -92,6 +92,8 @@ const useAPI = () => {
             selectedRealm,
             selectedAuctionHouse,
             regions,
+            realms,
+            auctionHouses,
             handleTokenChange,
             handleRegionChange,
             handleRealmChange,
