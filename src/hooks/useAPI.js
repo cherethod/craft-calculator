@@ -35,7 +35,7 @@ const useAPI = () => {
         if (token) {
           const regionsData = getRealms()
           console.log('Regions:', regionsData.value);
-          setRegions(regionsData.value.items);
+        //   setRegions(regionsData.value.items);
 
         }
     }, [token]);
