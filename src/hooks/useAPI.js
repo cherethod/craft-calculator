@@ -34,8 +34,8 @@ const useAPI = () => {
     useEffect(() => {
         if (token) {
           const regionsData = getRealms()
-          console.log('Regions:', regionsData);
-          
+          console.log('Regions:', regionsData.value.items);
+          setRegions(regionsData.value.items);
 
         }
     }, [token]);
@@ -74,7 +74,7 @@ const useAPI = () => {
             try {
               const res = await fetch('https://craft-calculator-puce.vercel.app/api/realms');
               const data = await res.json();
-              console.log('Realms:', data);
+            //   console.log('Realms:', data);
               
               return data;
             } catch (error) {
