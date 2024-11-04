@@ -3,7 +3,20 @@ import useAPI from "../hooks/useAPI";
 
 const SearchSettings = () => {
     
-    const { regions, realms, auctionHouses, selectedRegion, selectedRealm, selectedAuctionHouse, handleRegionChange, handleRealmChange, handleAuctionHouseIdChange, handleSubmitSearchSettings, handleStoreSettings } = useAPI();
+    const { regions, 
+        realms, 
+        auctionHouses, 
+        selectedRegion, 
+        selectedRealm, 
+        selectedAuctionHouse, 
+        selectedMode,
+        handleSelectMode,
+        handleRegionChange, 
+        handleRealmChange, 
+        handleAuctionHouseIdChange, 
+        handleSubmitSearchSettings, 
+        handleStoreSettings 
+    } = useAPI();
     const { dictionary } = useDictionary();
 
     const getRealmNameById = (realmId) => {
@@ -16,7 +29,10 @@ const SearchSettings = () => {
     };
 
     return (
-        <form className="search_settings" onSubmit={handleSubmitSearchSettings}>
+        <form className="search_settings" onSubmit={() => handleSelectMode("default)")}>
+            <div className="close_btn">
+                <button onClick={handleSubmitSearchSettings}>X</button>
+            </div>
             <div className="input_container">
                 <label htmlFor="region">{dictionary && dictionary["region"]}</label>
                 <select 

@@ -6,15 +6,11 @@ import useAPI from './hooks/useAPI';
 
 function App() {
   const {selectedRegion, selectedRealm, selectedAuctionHouse} = useAPI();
-  const [selectedMode, setSelectedMode] = useState('default');
-
-  const handleSelectMode = (mode) => {
-    setSelectedMode(mode);
-  }
+ 
 
   return (
     <>
-    <SideBar handleSelectMode={handleSelectMode} />
+    <SideBar />
     <main>
       {
         !selectedRegion && !selectedRealm && !selectedAuctionHouse || selectedMode === "search_settings" ? (

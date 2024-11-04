@@ -4,10 +4,10 @@ import { useDictionary } from "../context/DictionaryContext";
 import settings_icon from '../assets/settings_icon.svg';
 import useAPI from "../hooks/useAPI";
 
-const SideBar = ({handleSelectMode}) => {
+const SideBar = () => {
     const { dictionary, selectedLanguage, handleLanguageChange } = useDictionary();
     const {items} = useContext(ItemContext);
-    const {selectedAuctionHouse} = useAPI();
+    const {selectedAuctionHouse, selectedMode, handleSelectMode} = useAPI();
     return (
         <aside>
             <div className="language_selector">
@@ -22,7 +22,7 @@ const SideBar = ({handleSelectMode}) => {
 
            <div className="search_container">
         {
-            selectedAuctionHouse && (
+            selectedAuctionHouse && selectedMode == "default" && (
              <>
                 <label htmlFor="item-search">{dictionary && dictionary["searchItem"]}</label>
                 <input 

@@ -12,6 +12,13 @@ const useAPI = () => {
     const [auctionHouses, setAuctionHouses] = useState([]);
     const { accessToken, getAuthToken } = useAuth();
 
+    const [selectedMode, setSelectedMode] = useState('default');
+
+    const handleSelectMode = (mode) => {
+        if (!selectedRegion || !selectedRealm || !selectedAuctionHouse)  return;
+      setSelectedMode(mode);
+    }
+
     useEffect(() => {
         if (!token) {
             const storedToken = localStorage.getItem('token');
@@ -163,6 +170,8 @@ const useAPI = () => {
             regions,
             realms,
             auctionHouses,
+            selectedMode,
+            handleSelectMode,
             handleTokenChange,
             handleRegionChange,
             handleRealmChange,
