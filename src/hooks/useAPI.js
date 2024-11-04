@@ -32,12 +32,19 @@ const useAPI = () => {
     }, []);
 
     useEffect(() => {
-        if (token) {
-          const regionsData = getRealms()
-          console.log('Regions:', regionsData.value);
-        //   setRegions(regionsData.value.items);
-
-        }
+        const fetchRealms = async () => {
+            if (token) {
+                try {
+                    const regionsData = await getRealms();
+                    console.log('Regions:', regionsData);  // Ahora debería mostrar los datos correctos
+                    setRegions(regionsData.items);  // Asegúrate de que la estructura `items` sea correcta
+                } catch (error) {
+                    console.error('Error fetching regions:', error);
+                }
+            }
+        };
+    
+        fetchRealms();
     }, [token]);
 
 
