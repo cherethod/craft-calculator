@@ -6,8 +6,9 @@ import useAPI from "../hooks/useAPI";
 
 const SideBar = () => {
     const { dictionary, selectedLanguage, handleLanguageChange } = useDictionary();
-    const {items} = useContext(ItemContext);
-    const {selectedAuctionHouse, selectedMode, handleSelectMode} = useAPI();
+    const { items } = useContext(ItemContext);
+    const { selectedAuctionHouse, selectedMode, handleSelectMode } = useAPI();
+
     return (
         <aside>
             <div className="language_selector">
@@ -16,42 +17,36 @@ const SideBar = () => {
             </div>
 
             <div className="config_search_settings" onClick={() => handleSelectMode('search_settings')}>
-                {/* config icon */}
-                <img src={settings_icon} alt="settings icon" />        
+                <img src={settings_icon} alt="settings icon" />
             </div>
 
-           <div className="search_container">
-        {
-            selectedAuctionHouse && selectedMode == "default" && (
-             <>
-                <label htmlFor="item-search">{dictionary && dictionary["searchItem"]}</label>
-                <input 
-                     type="search" 
-                     name="item-search" 
-                     id="item-search" 
-                     list="items-list"
-                 />
-                 <datalist id="items-list">
-                 {
-                 Object.values(items.reduce((acc, item) => {
-                     acc[item.id] = item;
-                     return acc;
-                 }, {})).map((item) => (
-                     <option key={`item-datalist-${item.id}`} value={selectedLanguage === 'es' ? item.name[1] : item.name[0]} />
-                 ))
-                 }
-                 </datalist>
-             </>
-            )
-        }
-           </div>
+            {selectedAuctionHouse && selectedMode === "default" && (
+                <div className="search_container">
+                    <label htmlFor="item-search">{dictionary && dictionary["searchItem"]}</label>
+                    <input 
+                        type="search" 
+                        name="item-search" 
+                        id="item-search" 
+                        list="items-list"
+                    />
+                    <datalist id="items-list">
+                        {Object.values(items.reduce((acc, item) => {
+                            acc[item.id] = item;
+                            return acc;
+                        }, {})).map((item) => (
+                            <option key={`item-datalist-${item.id}`} value={selectedLanguage === 'es' ? item.name[1] : item.name[0]} />
+                        ))}
+                    </datalist>
+                </div>
+            )}
+
             <ul>
                 <li><a href="#">{dictionary && dictionary["prices"]}</a></li>
                 <li><a href="#">{dictionary && dictionary["craftProfit"]}</a></li>
                 <li><a href="#">{dictionary && dictionary["justiceVendor"]}</a></li>
             </ul>
         </aside>
-    )
+    );
 }
 
 export default SideBar;

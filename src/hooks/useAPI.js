@@ -12,7 +12,7 @@ const useAPI = () => {
     const [auctionHouses, setAuctionHouses] = useState([]);
     const { accessToken, getAuthToken } = useAuth();
 
-    const [selectedMode, setSelectedMode] = useState('default');
+    const [selectedMode, setSelectedMode] = useState(!selectedRegion || !selectedRealm || !selectedAuctionHouse ? "search_settings" : "default");
 
     const handleSelectMode = (mode) => {
         if (!selectedRegion || !selectedRealm || !selectedAuctionHouse)  return;
