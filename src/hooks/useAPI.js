@@ -34,7 +34,7 @@ const useAPI = () => {
     useEffect(() => {
         if (token) {
           const regionsData = getRealms()
-          console.log('Regions:', regionsData.value.items);
+          console.log('Regions:', regionsData.value);
           setRegions(regionsData.value.items);
 
         }
