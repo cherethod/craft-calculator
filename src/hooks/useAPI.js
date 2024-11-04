@@ -36,7 +36,7 @@ const useAPI = () => {
             if (token) {
                 try {
                     const regionsData = await getRealms();
-                    console.log('Regions:', regionsData);  // Ahora debería mostrar los datos correctos
+                    console.log('Regions:', regionsData.items);  // Ahora debería mostrar los datos correctos
                     setRegions(regionsData.items);  // Asegúrate de que la estructura `items` sea correcta
                 } catch (error) {
                     console.error('Error fetching regions:', error);
@@ -78,16 +78,11 @@ const useAPI = () => {
           };
 
           const getRealms = async () => {
-            try {
-              const res = await fetch('https://craft-calculator-puce.vercel.app/api/realms');
-              const data = await res.json();
-            //   console.log('Realms:', data);
-              
-              return data;
-            } catch (error) {
-              console.error('Error fetching realms:', error);  // Error while fetching realms
-            }
-          }
+            const res = await fetch('https://craft-calculator-puce.vercel.app/api/realms');
+            if (!res.ok) throw new Error('Failed to fetch realms');
+            const data = await res.json();
+            return data;
+        };
 
         
 
