@@ -23,9 +23,6 @@ const SearchSettings = () => {
         if (!selectedRegion || !selectedRealm) return;
          return Object.entries(regions).find((region) => region[1].regionId == selectedRegion)[1].realms
         .find((realm) => realm.realmId == realmId).name;
-        
-        // const realm = regions[selectedRegion].find(realm => realm.realmId === realmId);
-        // return realm ? realm.name : "";
     };
 
     return (
@@ -59,7 +56,6 @@ const SearchSettings = () => {
                             id="realm-search"
                             list="realms-list"
                             placeholder={getRealmNameById(selectedRealm) || dictionary["searchRealm"]}
-                            // value={getRealmNameById(selectedRealm) || ""}
                             onChange={(e) => handleRealmChange(e.target.value)} // Pasamos solo el nombre del reino
                         />
                         <datalist id="realms-list">

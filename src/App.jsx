@@ -13,7 +13,7 @@ function App() {
     <SideBar />
     <main>
       {
-        !selectedRegion && !selectedRealm && !selectedAuctionHouse || selectedMode === "search_settings" ? (
+        !selectedRegion || !selectedRealm || !selectedAuctionHouse || selectedMode === "search_settings" ? (
           <SearchSettings />
         ) : (
           <h1>Region: {selectedRegion}, Realm: {selectedRealm}, Auction House: {selectedAuctionHouse}</h1>
