@@ -12,48 +12,24 @@ const useAPI = () => {
     const [auctionHouses, setAuctionHouses] = useState([]);
     const { accessToken, getAuthToken } = useAuth();
 
-    const [selectedMode, setSelectedMode] = useState(!selectedRegion || !selectedRealm || !selectedAuctionHouse ? "search_settings" : "default");
-
-    const handleSelectMode = (mode) => {
-        if (!selectedRegion || !selectedRealm || !selectedAuctionHouse)  return;
-      setSelectedMode(mode);
-    }
-
     useEffect(() => {
+        if (!token) {
             // const storedToken = localStorage.getItem('token');
             // if (storedToken) {
             //     setToken(storedToken);
             // }
-
             // else {
-            const fetchToken = async () => {
-            try {
-                const authToken = await getAuthToken();
-                console.log('authToken:', authToken);
-                if (authToken) {
-                    setToken(authToken);
-                    // localStorage.setItem('token', authToken);
-                }
-            } catch (error) {
-                console.error('Error getting token:', error);
-
-                
-            }
-                // const authToken = getAuthToken()
-                //     .then((newToken) => {
-                //         setToken(newToken);
-                //         // localStorage.setItem('token', newToken);
-                //     })
-                //     .catch((error) => {
-                //         console.error('Error getting token:', error);
-                //     });
-                // setToken(authToken);
-            } 
-        if (!token) {
-            fetchToken();
-        }
-
-        // }        
+                const authToken = getAuthToken()
+                    .then((newToken) => {
+                        setToken(newToken);
+                        localStorage.setItem('token', newToken);
+                    })
+                    .catch((error) => {
+                        console.error('Error getting token:', error);
+                    });
+                setToken(authToken);
+            // } 
+        }        
     }, []);
 
     
@@ -187,8 +163,6 @@ const useAPI = () => {
             regions,
             realms,
             auctionHouses,
-            selectedMode,
-            handleSelectMode,
             handleTokenChange,
             handleRegionChange,
             handleRealmChange,
