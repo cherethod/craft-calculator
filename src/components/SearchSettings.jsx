@@ -21,9 +21,13 @@ const SearchSettings = () => {
     const { dictionary } = useDictionary();
 
     const getRealmNameById = (realmId) => {
-        if (!selectedRegion || !selectedRealm || !regions) return;
-         return Object.entries(regions).find((region) => region[1].regionId == selectedRegion)[1].realms
-        .find((realm) => realm.realmId == realmId).name;
+        if (selectedRegion && selectedRealm && regions) {
+            const elem1 = Object.entries(regions).find((region) => region[1].regionId == selectedRegion)
+            console.log('elem1: ',elem1);
+            const elem2 = elem1[1].realms.find((realm) => realm.realmId == realmId).name;
+            console.log('elem2: ',elem2);
+            return Object.entries(regions).find((region) => region[1].regionId == selectedRegion)[1].realms.find((realm) => realm.realmId == realmId).name;
+    }
     };
 
     return (
