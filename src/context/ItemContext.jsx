@@ -40,7 +40,7 @@ const ItemProvider = ({ children }) => {
                     name: itemData.name,
                     reagents: reagents,
                     image: itemData.image,
-                    price: getAuctionPrices(selectedAuctionHouse, item),
+                    price: selectedAuctionHouse ? getAuctionPrices(selectedAuctionHouse, item) : undefined,
                 };
                 newItems.push(newItem);
                 // console.log('newItem: ',newItem);
@@ -54,7 +54,7 @@ const ItemProvider = ({ children }) => {
                     name: reagentData.name,
                     reagents: [],
                     image: reagentData.image,
-                    price: getAuctionPrices(selectedAuctionHouse, item),
+                    price: selectedAuctionHouse ? getAuctionPrices(selectedAuctionHouse, item) : undefined,
                 };
                 newItems.push(newItem);
                 // console.log('newItem: ',newItem);
@@ -64,7 +64,7 @@ const ItemProvider = ({ children }) => {
         }
         
         
-    }, []);
+    }, [selectedAuctionHouse]);
 
 
     return (
