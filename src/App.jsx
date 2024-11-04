@@ -5,7 +5,7 @@ import SearchSettings from './components/SearchSettings';
 import useAPI from './hooks/useAPI';
 
 function App() {
-  const {selectedRegion, selectedRealm, selectedAuctionHouse} = useAPI();
+  const {selectedRegion, selectedRealm, selectedAuctionHouse, selectedMode} = useAPI();
  
 
   return (
