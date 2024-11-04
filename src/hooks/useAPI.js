@@ -21,22 +21,22 @@ const useAPI = () => {
 
     useEffect(() => {
         if (!token) {
-            const storedToken = localStorage.getItem('token');
-            if (storedToken) {
-                setToken(storedToken);
-            }
-            else {
+            // const storedToken = localStorage.getItem('token');
+            // if (storedToken) {
+            //     setToken(storedToken);
+            // }
+            // else {
                 const authToken = getAuthToken()
                     .then((newToken) => {
                         setToken(newToken);
-                        localStorage.setItem('token', newToken);
+                        // localStorage.setItem('token', newToken);
                     })
                     .catch((error) => {
                         console.error('Error getting token:', error);
                     });
                 setToken(authToken);
             } 
-        }        
+        // }        
     }, []);
 
     
