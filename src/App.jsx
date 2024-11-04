@@ -1,18 +1,23 @@
-import { useContext } from 'react'
+import { useState } from 'react'
 import './App.css'
 import SideBar from './components/SideBar'
-import { ItemContext } from './context/ItemContext';
 import SearchSettings from './components/SearchSettings';
+import useAPI from './hooks/useAPI';
 
 function App() {
-  const {selectedRegion, selectedRealm, selectedAuctionHouse} = useContext(ItemContext);
+  const {selectedRegion, selectedRealm, selectedAuctionHouse} = useAPI();
+  const [selectedMode, setSelectedMode] = useState('default');
+
+  const handleSelectMode = (mode) => {
+    setSelectedMode(mode);
+  }
 
   return (
     <>
-    <SideBar />
+    <SideBar handleSelectMode={handleSelectMode} />
     <main>
       {
-        !selectedRegion && !selectedRealm && !selectedAuctionHouse ? (
+        !selectedRegion && !selectedRealm && !selectedAuctionHouse || selectedMode === "search_settings" ? (
           <SearchSettings />
         ) : (
           <h1>Region: {selectedRegion}, Realm: {selectedRealm}, Auction House: {selectedAuctionHouse}</h1>

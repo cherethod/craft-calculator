@@ -1,16 +1,23 @@
 import { useContext } from "react";
-import useDictionary from "../hooks/useDictionary";
 import { ItemContext } from "../context/ItemContext";
+import { useDictionary } from "../context/DictionaryContext";
+import settings_icon from '../assets/settings_icon.svg';
 
-const SideBar = () => {
-    const { selectedLanguage, handleLanguageChange } = useDictionary();
-    const {items, dictionary} = useContext(ItemContext);
+const SideBar = ({handleSelectMode}) => {
+    const { dictionary, selectedLanguage, handleLanguageChange } = useDictionary();
+    const {items} = useContext(ItemContext);
     return (
         <aside>
             <div className="language_selector">
                 <span onClick={() => handleLanguageChange('es')} className={selectedLanguage === 'es' ? 'selected' : ''}>🇪🇸</span>
                 <span onClick={() => handleLanguageChange('en')} className={selectedLanguage === 'en' ? 'selected' : ''}>🇬🇧</span>
             </div>
+
+            <div className="config_search_settings" onClick={() => handleSelectMode('search_settings')}>
+                {/* config icon */}
+                <img src={settings_icon} alt="settings icon" />        
+            </div>
+
            <div className="search_container">
             <label htmlFor="item-search">{dictionary && dictionary["searchItem"]}</label>
            <input 

@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import ItemData from "../mocks/itemData.json";
 import useAPI from "../hooks/useAPI";
-import useDictionary from "../hooks/useDictionary";
 
 const ItemContext = createContext();
 
@@ -19,13 +18,6 @@ const ItemProvider = ({ children }) => {
         getAuctionPrices,
         getRealms,
     } = useAPI();
-
-    const {
-        dictionary,
-        selectedLanguage,
-        handleLanguageChange
-    } = useDictionary();
-
 
     // Developement effetc to fullify the items array
     useEffect(() => {
@@ -51,7 +43,7 @@ const ItemProvider = ({ children }) => {
                     price: getAuctionPrices(selectedAuctionHouse, item),
                 };
                 newItems.push(newItem);
-                console.log('newItem: ',newItem);
+                // console.log('newItem: ',newItem);
                 
             }
 
@@ -65,7 +57,7 @@ const ItemProvider = ({ children }) => {
                     price: getAuctionPrices(selectedAuctionHouse, item),
                 };
                 newItems.push(newItem);
-                console.log('newItem: ',newItem);
+                // console.log('newItem: ',newItem);
                 
             }
             setItems(newItems);
@@ -76,7 +68,7 @@ const ItemProvider = ({ children }) => {
 
 
     return (
-        <ItemContext.Provider value={{ items, dictionary }}>
+        <ItemContext.Provider value={{ items }}>
         {children}
         </ItemContext.Provider>
     );

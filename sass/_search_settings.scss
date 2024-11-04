@@ -1,0 +1,37 @@
+@import "variables";
+
+.search_settings {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: $primary-gradient;
+    
+    .input_container {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+
+        input, select {
+            padding: .5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    }
+
+    .save-btn {
+        background-color: $btn-bg-color;
+        color: $btn-font-color;
+        border: none;
+        padding: .5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color .25s;
+
+        &:hover {
+            background-color: $btn-bg-color-hover;
+        }
+    }
+}

@@ -14,7 +14,7 @@ aside {
         display: flex;
         gap: 0.5rem;
         position: absolute;
-        top: .5rem;
+        top: 1rem;
         right: 1rem;
         & > span {
             display: flex;
@@ -23,15 +23,23 @@ aside {
             padding: 0;
             cursor: pointer;
             filter: grayscale(1);
+            
             &.selected {
                 filter: grayscale(0);
             }
         }
     }
 
+    .config_search_settings {
+        cursor: pointer;
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+    }
+
     .search_container {
         display: flex;
-        margin-top: 1rem;
+        margin-top: 2rem;
         gap: .5rem;
         text-transform: uppercase;
     }
