@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { ItemContext } from "../context/ItemContext";
 import { useDictionary } from "../context/DictionaryContext";
 import settings_icon from '../assets/settings_icon.svg';
+import useAPI from "../hooks/useAPI";
 
 const SideBar = ({handleSelectMode}) => {
     const { dictionary, selectedLanguage, handleLanguageChange } = useDictionary();
     const {items} = useContext(ItemContext);
+    const {selectedAuctionHouse} = useAPI();
     return (
         <aside>
             <div className="language_selector">
@@ -19,23 +21,29 @@ const SideBar = ({handleSelectMode}) => {
             </div>
 
            <div className="search_container">
-            <label htmlFor="item-search">{dictionary && dictionary["searchItem"]}</label>
-           <input 
-                type="search" 
-                name="item-search" 
-                id="item-search" 
-                list="items-list"
-            />
-            <datalist id="items-list">
-            {
-            Object.values(items.reduce((acc, item) => {
-                acc[item.id] = item;
-                return acc;
-            }, {})).map((item) => (
-                <option key={`item-datalist-${item.id}`} value={selectedLanguage === 'es' ? item.name[1] : item.name[0]} />
-            ))
-            }
-            </datalist>
+        {
+            selectedAuctionHouse && (
+             <>
+                <label htmlFor="item-search">{dictionary && dictionary["searchItem"]}</label>
+                <input 
+                     type="search" 
+                     name="item-search" 
+                     id="item-search" 
+                     list="items-list"
+                 />
+                 <datalist id="items-list">
+                 {
+                 Object.values(items.reduce((acc, item) => {
+                     acc[item.id] = item;
+                     return acc;
+                 }, {})).map((item) => (
+                     <option key={`item-datalist-${item.id}`} value={selectedLanguage === 'es' ? item.name[1] : item.name[0]} />
+                 ))
+                 }
+                 </datalist>
+             </>
+            )
+        }
            </div>
             <ul>
                 <li><a href="#">{dictionary && dictionary["prices"]}</a></li>
