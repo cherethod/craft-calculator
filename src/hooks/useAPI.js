@@ -26,8 +26,6 @@ const useAPI = () => {
                     .catch((error) => {
                         console.error('Error getting token:', error);
                     });
-                console.log(authToken);
-                
                 setToken(authToken);
             } 
         }        
@@ -35,14 +33,10 @@ const useAPI = () => {
 
     useEffect(() => {
         if (token) {
-            getRealms()
-                .then((regions) => {
-                    console.log('Regions:', regions);
-                    
-                })
-                .catch((error) => {
-                    console.error('Error getting regions:', error);
-                });
+          const regionsData = getRealms()
+          console.log('Regions:', regionsData);
+          
+
         }
     }, [token]);
 
@@ -80,6 +74,8 @@ const useAPI = () => {
             try {
               const res = await fetch('https://craft-calculator-puce.vercel.app/api/realms');
               const data = await res.json();
+              console.log('Realms:', data);
+              
               return data;
             } catch (error) {
               console.error('Error fetching realms:', error);  // Error while fetching realms
@@ -93,6 +89,7 @@ const useAPI = () => {
             selectedRegion,
             selectedRealm,
             selectedAuctionHouse,
+            regions,
             handleTokenChange,
             handleRegionChange,
             handleRealmChange,

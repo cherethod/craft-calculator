@@ -63,8 +63,6 @@ const ItemProvider = ({ children }) => {
             }
             setItems(newItems);
         }
-        const realmsResponse = getRealms();
-        console.log('realmsResponse: ',realmsResponse);
         
         
     }, []);

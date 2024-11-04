@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import './App.css'
 import SideBar from './components/SideBar'
 import { ItemContext } from './context/ItemContext';
@@ -6,11 +6,6 @@ import SearchSettings from './components/SearchSettings';
 
 function App() {
   const {selectedRegion, selectedRealm, selectedAuctionHouse} = useContext(ItemContext);
-
-  const handleLanguageChange = (lang) => {
-    setSelectedLanguage(lang)
-  }
-
 
   return (
     <>
