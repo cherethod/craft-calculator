@@ -17,6 +17,7 @@ const SearchSettings = () => {
         handleSubmitSearchSettings, 
         handleStoreSettings 
     } = useAPI();
+    
     const { dictionary } = useDictionary();
 
     const getRealmNameById = (realmId) => {
