@@ -17,11 +17,11 @@ const SearchSettings = () => {
         handleSubmitSearchSettings, 
         handleStoreSettings 
     } = useAPI();
-    
+
     const { dictionary } = useDictionary();
 
     const getRealmNameById = (realmId) => {
-        if (!selectedRegion || !selectedRealm) return;
+        if (!selectedRegion || !selectedRealm || !regions) return;
          return Object.entries(regions).find((region) => region[1].regionId == selectedRegion)[1].realms
         .find((realm) => realm.realmId == realmId).name;
     };
