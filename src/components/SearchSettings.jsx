@@ -1,5 +1,5 @@
 import { useDictionary } from "../context/DictionaryContext";
-import useAPI from "../hooks/useAPI";
+import { useAPI } from '../context/APIContext';
 
 const SearchSettings = () => {
     

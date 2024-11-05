@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import ItemData from "../mocks/itemData.json";
-import useAPI from "../hooks/useAPI";
+import { useAPI } from './APIContext';
 
 const ItemContext = createContext();
 

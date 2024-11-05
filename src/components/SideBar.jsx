@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ItemContext } from "../context/ItemContext";
 import { useDictionary } from "../context/DictionaryContext";
 import settings_icon from '../assets/settings_icon.svg';
-import useAPI from "../hooks/useAPI";
+import { useAPI } from '../context/APIContext';
 
 const SideBar = () => {
     const { dictionary, selectedLanguage, handleLanguageChange } = useDictionary();
