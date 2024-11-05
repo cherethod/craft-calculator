@@ -28,9 +28,9 @@
         position: absolute;
         top: .5rem;
         right: .5rem;
-        background-color: transparent;
-
+        
         button {
+            background-color: $btn-bg-color-close;
             padding: .5rem;
             border-radius: 5px;
             color: $font-color;
@@ -39,7 +39,8 @@
             transition: color .25s;
     
             &:hover {
-                color: $font-color-hover;
+            background-color: $btn-bg-color-close-hover;
+            color: $font-color-hover;
             }
         }
     }

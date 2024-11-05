@@ -87,9 +87,9 @@ aside ul > li > a.selected {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  background-color: transparent;
 }
 .search_settings .close_btn button {
+  background-color: #ff0000;
   padding: 0.5rem;
   border-radius: 5px;
   color: #fff;
@@ -98,6 +98,7 @@ aside ul > li > a.selected {
   transition: color 0.25s;
 }
 .search_settings .close_btn button:hover {
+  background-color: #971d1d;
   color: #abff9f;
 }
 .search_settings .save-btn {
@@ -161,6 +162,11 @@ main img {
   bottom: 0;
   right: 0;
   z-index: 1;
+}
+main h3 {
+  position: absolute;
+  top: 3em;
+  left: 3em;
 }
 
 .btn-primary {

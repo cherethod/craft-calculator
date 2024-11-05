@@ -7,7 +7,7 @@ import useAPI from "../hooks/useAPI";
 const SideBar = () => {
     const { dictionary, selectedLanguage, handleLanguageChange } = useDictionary();
     const { items } = useContext(ItemContext);
-    const { selectedAuctionHouse, selectedMode, handleSelectMode } = useAPI();
+    const { selectedAuctionHouse, selectedMode, handleSelectedMode } = useAPI();
     return (
         <aside>
             <div className="language_selector">
@@ -15,7 +15,7 @@ const SideBar = () => {
                 <span onClick={() => handleLanguageChange('en')} className={selectedLanguage === 'en' ? 'selected' : ''}>🇬🇧</span>
             </div>
 
-            <div className="config_search_settings" onClick={() => handleSelectMode('search_settings')}>
+            <div className="config_search_settings" onClick={() => handleSelectedMode('search_settings')}>
                 <img src={settings_icon} alt="settings icon" />        
             </div>
 

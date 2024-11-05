@@ -11,48 +11,54 @@ const useAPI = () => {
     const [realms, setRealms] = useState([]);
     const [auctionHouses, setAuctionHouses] = useState([]);
     const { accessToken, getAuthToken } = useAuth();
+    const [ selectedMode, setSelectedMode ] = useState('default');
 
-    useEffect(() => {
-        if (!token) {
-            // const storedToken = localStorage.getItem('token');
-            // if (storedToken) {
-            //     setToken(storedToken);
-            // }
-            // else {
-                const authToken = getAuthToken()
-                    .then((newToken) => {
-                        setToken(newToken);
-                        localStorage.setItem('token', newToken);
-                    })
-                    .catch((error) => {
-                        console.error('Error getting token:', error);
-                    });
-                setToken(authToken);
-            // } 
-        }        
-    }, []);
+    // useEffect(() => {
+    //     if (!token) {
+    //         // const storedToken = localStorage.getItem('token');
+    //         // if (storedToken) {
+    //         //     setToken(storedToken);
+    //         // }
+    //         // else {
+    //             const authToken = getAuthToken()
+    //                 .then((newToken) => {
+    //                     setToken(newToken);
+    //                     localStorage.setItem('token', newToken);
+    //                 })
+    //                 .catch((error) => {
+    //                     console.error('Error getting token:', error);
+    //                 });
+    //             setToken(authToken);
+    //         // } 
+    //     }        
+    // }, []);
 
     
-    useEffect(() => {
-        const fetchRealms = async () => {
-            if (token) {
-                try {
-                    const regionsData = await getRealms();
-                    console.log('Regions:', regionsData.items);  // Ahora debería mostrar los datos correctos
-                    setRegions(regionsData.items);  // Asegúrate de que la estructura `items` sea correcta
-                } catch (error) {
-                    console.error('Error fetching regions:', error);
-                }
-            }
-        };
+    // useEffect(() => {
+    //     const fetchRealms = async () => {
+    //         if (token) {
+    //             try {
+    //                 const regionsData = await getRealms();
+    //                 console.log('Regions:', regionsData.items);  // Ahora debería mostrar los datos correctos
+    //                 setRegions(regionsData.items);  // Asegúrate de que la estructura `items` sea correcta
+    //             } catch (error) {
+    //                 console.error('Error fetching regions:', error);
+    //             }
+    //         }
+    //     };
     
-        fetchRealms();
-    }, [token]);
+    //     fetchRealms();
+    // }, [token]);
 
     useEffect(() => {
         const localSelectedRegion = localStorage.getItem('selectedRegion');
         const localSelectedRealm = localStorage.getItem('selectedRealm');
         const localSelectedAuctionHouse = localStorage.getItem('selectedAuctionHouse');
+         
+        // Asegura que las regiones estén configuradas (puede ser con datos de prueba o reales)
+           if (regions.length === 0) {
+            setRegions(regionsData);  // Este sería el `regionsData` de tus datos locales, en desarrollo.
+        }
 
         if (localSelectedRegion && regions) {
             setSelectedRegion(localSelectedRegion);
@@ -74,13 +80,11 @@ const useAPI = () => {
             setSelectedAuctionHouse(localSelectedAuctionHouse);
         }
         
-    }, [regions, realms, auctionHouses]);
+    }, [regions, realms, auctionHouses]);   
 
-
-// // Temp dev data load
-//     useEffect(() => {
-//         setRegions(regionsData);
-//     }, []);
+    useEffect(() => {
+        console.log('Selected Mode changed:', selectedMode);        
+    }, [selectedMode]);
 
         const handleTokenChange = (newToken) => {
             setToken(newToken);
@@ -113,38 +117,44 @@ const useAPI = () => {
         
 
         const handleAuctionHouseIdChange = (newAuctionHouseId) => {
-            console.log('newAuctionHouseId: ',newAuctionHouseId);
-            
+            if (!newAuctionHouseId) {
+                setSelectedAuctionHouse(null);
+                return;
+            }
             setSelectedAuctionHouse(newAuctionHouseId);
         };
 
         const handleSubmitSearchSettings = (e) => {
             e.preventDefault();
+            console.log(e);
+            
             if (selectedRegion && selectedRealm && selectedAuctionHouse) {
+                localStorage.setItem('selectedRegion', selectedRegion);
+                localStorage.setItem('selectedRealm', selectedRealm);
+                localStorage.setItem('selectedAuctionHouse', selectedAuctionHouse);
                 console.log('selectedRegion: ',selectedRegion);
                 console.log('selectedRealm: ',selectedRealm);
                 console.log('selectedAuctionHouse: ',selectedAuctionHouse);
+                setSelectedMode('default');
             }
-        }
+        };
 
-        const handleStoreSettings = () => {
-            console.log('Settings stored:', selectedRegion, selectedRealm, selectedAuctionHouse);
-            localStorage.setItem('selectedRegion', selectedRegion);
-            localStorage.setItem('selectedRealm', selectedRealm);
-            localStorage.setItem('selectedAuctionHouse', selectedAuctionHouse);
-        }
-
-
+        const priceCache = {};
 
         const getAuctionPrices = async (auctionHouseId, itemId) => {
-            try {
-              const res = await fetch(`https://craft-calculator-puce.vercel.app/api/auction-prices?auctionHouseId=${auctionHouseId}&itemId=${itemId}`);
-              const data = await res.json();
-              return data;
-            } catch (error) {
-              console.error('Error fetching auction prices:', error);  // Error while fetching auction prices
+            const cacheKey = `${auctionHouseId}-${itemId}`;
+            if (priceCache[cacheKey]) {
+                return priceCache[cacheKey];  // Devuelve el precio almacenado si ya fue consultado
             }
-          };
+            try {
+                const res = await fetch(`https://craft-calculator-puce.vercel.app/api/auction-prices?auctionHouseId=${auctionHouseId}&itemId=${itemId}`);
+                const data = await res.json();
+                priceCache[cacheKey] = data;  // Almacena el precio en la caché
+                return data;
+            } catch (error) {
+                console.error('Error fetching auction prices:', error);
+            }
+        };
 
           const getRealms = async () => {
             const res = await fetch('https://craft-calculator-puce.vercel.app/api/realms');
@@ -153,7 +163,11 @@ const useAPI = () => {
             return data;
         };
 
-        
+        const handleSelectedMode = (mode) => {
+            console.log('mode: ',mode);
+            
+            setSelectedMode(mode);
+        }
 
         return {
             token,
@@ -163,12 +177,13 @@ const useAPI = () => {
             regions,
             realms,
             auctionHouses,
+            selectedMode,
             handleTokenChange,
             handleRegionChange,
             handleRealmChange,
             handleAuctionHouseIdChange,
             handleSubmitSearchSettings,
-            handleStoreSettings,
+            handleSelectedMode,
             getAuctionPrices,
             getRealms,
         };
