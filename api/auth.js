@@ -23,7 +23,7 @@ export default async function handler(req, res) {
          });
 
          accessToken = response.data.access_token;
-         tokenExpiresAt = currentTime + response.data.expires_in;
+         tokenExpiresAt = currentTime + response.data.expires_at;
          console.log('Respuesta completa:', response.data);
          console.log('Token de acceso:', accessToken);
          console.log('Expira en:', tokenExpiresAt);
