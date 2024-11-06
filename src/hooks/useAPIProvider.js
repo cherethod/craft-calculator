@@ -43,13 +43,15 @@ const useAPIProvider = () => {
     // fetchRealms sólo si `token` está disponible
     
     useEffect(() => {
+        console.log('Token:', accessToken);
+        
         const fetchRealms = async () => {
-            if (token) {
+            if (accessToken) {
                 try {
                     const res = await axios.get('/api/realms', {
                         method: 'GET',
                         headers: {
-                            'accessToken': token,
+                            'accessToken': accessToken,
                         },
                     });
                     console.log('Respuesta completa:', res.data);
@@ -65,7 +67,7 @@ const useAPIProvider = () => {
 
         console.log(fetchRealms());
         
-    }, [token]);
+    }, [accessToken]);
 
 
     useEffect(() => {

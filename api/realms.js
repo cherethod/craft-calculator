@@ -4,8 +4,7 @@ import axios from 'axios';
 export default async function handler(req, res) {
     if (req.method === 'GET') {
         const { accessToken } = req.headers;
-        console.log('Token de acceso:', accessToken);
-        
+
         if (!accessToken) {
             return res.status(400).json({ message: 'Access token is required' });
         }
@@ -14,10 +13,11 @@ export default async function handler(req, res) {
             const response = await axios.get('https://realm-api.tradeskillmaster.com/realms', {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
+                    'Accept': 'application/json',
                 },
             });
-            console.log('Respuesta completa:', response.data);
-            res.json(response.data); // Enviamos los datos de los reinos al frontend
+            
+            res.json(response.data);
             
         } catch (error) {
             console.error('Error fetching realms:', error);
