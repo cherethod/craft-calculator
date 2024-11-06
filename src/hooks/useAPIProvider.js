@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
+import axios from "axios";
 import { regionsData } from "../mocks/regionResponse";
 
 const useAPIProvider = () => {
@@ -18,7 +19,7 @@ const useAPIProvider = () => {
         const fetchToken = async () => {
             try {
                 const newToken = await getAuthToken();
-                setToken(newToken);
+                setToken(prevToken => newToken);
                 console.log('Token obtenido:', newToken);
             } catch (error) {
                 console.error('Error obteniendo el token:', error);
@@ -45,23 +46,25 @@ const useAPIProvider = () => {
         const fetchRealms = async () => {
             if (token) {
                 try {
-                    const res = await fetch('/api/realms', {
+                    const res = await axios.get('/api/realms', {
                         method: 'GET',
                         headers: {
                             'accessToken': token,
                         },
                     });
-
+                    console.log('Respuesta completa:', res.data);
+                    
                     if (!res.ok) throw new Error('Failed to fetch realms');
                     const data = await res.json();
-                    setRegions(data.items);
+                    return data;
                 } catch (error) {
                     console.error('Error fetching realms:', error);
                 }
             }
         };
 
-        fetchRealms();
+        console.log(fetchRealms());
+        
     }, [token]);
 
 
@@ -172,13 +175,6 @@ const useAPIProvider = () => {
             }
         };
 
-          const getRealms = async () => {
-            const res = await fetch('api/realms');
-            if (!res.ok) throw new Error('Failed to fetch realms');
-            const data = await res.json();
-            return data;
-        };
-
         const handleSelectedMode = (mode) => {
             console.log('mode: ',mode);
             
@@ -201,7 +197,6 @@ const useAPIProvider = () => {
             handleSubmitSearchSettings,
             handleSelectedMode,
             getAuctionPrices,
-            getRealms,
         };
 };
 
