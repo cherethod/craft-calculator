@@ -13,42 +13,42 @@ const useAPIProvider = () => {
     const { accessToken, getAuthToken } = useAuth();
     const [ selectedMode, setSelectedMode ] = useState('default');
 
-    // useEffect(() => {
-    //     if (!token) {
-    //         // const storedToken = localStorage.getItem('token');
-    //         // if (storedToken) {
-    //         //     setToken(storedToken);
-    //         // }
-    //         // else {
-    //             const authToken = getAuthToken()
-    //                 .then((newToken) => {
-    //                     setToken(newToken);
-    //                     localStorage.setItem('token', newToken);
-    //                 })
-    //                 .catch((error) => {
-    //                     console.error('Error getting token:', error);
-    //                 });
-    //             setToken(authToken);
-    //         // } 
-    //     }        
-    // }, []);
+    useEffect(() => {
+        if (!token) {
+            // const storedToken = localStorage.getItem('token');
+            // if (storedToken) {
+            //     setToken(storedToken);
+            // }
+            // else {
+                const authToken = getAuthToken()
+                    .then((newToken) => {
+                        setToken(newToken);
+                        localStorage.setItem('token', newToken);
+                    })
+                    .catch((error) => {
+                        console.error('Error getting token:', error);
+                    });
+                setToken(authToken);
+            // } 
+        }        
+    }, []);
 
     
-    // useEffect(() => {
-    //     const fetchRealms = async () => {
-    //         if (token) {
-    //             try {
-    //                 const regionsData = await getRealms();
-    //                 console.log('Regions:', regionsData.items);  // Ahora debería mostrar los datos correctos
-    //                 setRegions(regionsData.items);  // Asegúrate de que la estructura `items` sea correcta
-    //             } catch (error) {
-    //                 console.error('Error fetching regions:', error);
-    //             }
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchRealms = async () => {
+            if (token) {
+                try {
+                    const regionsData = await getRealms();
+                    console.log('Regions:', regionsData.items);  // Ahora debería mostrar los datos correctos
+                    setRegions(regionsData.items);  // Asegúrate de que la estructura `items` sea correcta
+                } catch (error) {
+                    console.error('Error fetching regions:', error);
+                }
+            }
+        };
     
-    //     fetchRealms();
-    // }, [token]);
+        fetchRealms();
+    }, [token]);
 
     useEffect(() => {
         const localSelectedRegion = localStorage.getItem('selectedRegion');
@@ -82,9 +82,9 @@ const useAPIProvider = () => {
         
     }, [regions, realms, auctionHouses]);   
 
-    useEffect(() => {
-        console.log('Selected Mode changed:', selectedMode);        
-    }, [selectedMode]);
+    // useEffect(() => {
+    //     console.log('Selected Mode changed:', selectedMode);        
+    // }, [selectedMode]);
 
     useEffect(() => {
         if (!selectedRegion && !selectedRealm && !selectedAuctionHouse) {
