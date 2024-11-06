@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const useAuth = () => { 
+const useAuth = () => {
     const [accessToken, setAccessToken] = useState('');
     const [tokenExpiresAt, setTokenExpiresAt] = useState(0);
 
@@ -10,19 +10,21 @@ const useAuth = () => {
 
         if (!accessToken || currentTime >= tokenExpiresAt) {
             try {
-                const response = await axios.post('https://craft-calculator-puce.vercel.app/api/auth'); // Aquí usamos el endpoint intermedio
-                setAccessToken(response.data.access_token);
-                setTokenExpiresAt(currentTime + response.data.expires_in);
-                console.log(response);
-                
-                return response.data.access_token;
-             } catch (error) {
+                const response = await axios.post('/api/auth'); // Vercel endpoint
+                const { access_token, expires_at } = response.data;
+
+                setAccessToken(access_token);
+                setTokenExpiresAt(expires_at);
+
+                console.log('Token de acceso obtenido:', access_token);
+                return access_token;
+            } catch (error) {
                 console.error("Error al obtener el token de autenticación:", error);
-                throw new Error("Error al autenticar con la API de TradeSkillMaster");
-             }
+                throw new Error("Error en la autenticación con TradeSkillMaster");
+            }
         }
 
-        return accessToken; // If the token is valid, return it
+        return accessToken;
     };
 
     return { accessToken, tokenExpiresAt, getAuthToken };
