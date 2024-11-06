@@ -56,9 +56,9 @@ const useAPIProvider = () => {
         const localSelectedAuctionHouse = localStorage.getItem('selectedAuctionHouse');
          
         // Asegura que las regiones estén configuradas (puede ser con datos de prueba o reales)
-           if (regions.length === 0) {
-            setRegions(regionsData);  // Este sería el `regionsData` de tus datos locales, en desarrollo.
-        }
+        //    if (regions.length === 0) {
+        //     setRegions(regionsData);  // Este sería el `regionsData` de tus datos locales, en desarrollo.
+        // }
 
         if (localSelectedRegion && regions) {
             setSelectedRegion(localSelectedRegion);
