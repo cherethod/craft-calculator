@@ -40,18 +40,27 @@ const useAPIProvider = () => {
     }, [token, tokenExpiresAt]);
 
     // fetchRealms sólo si `token` está disponible
+    
     useEffect(() => {
         const fetchRealms = async () => {
             if (token) {
                 try {
-                    const regionsData = await getRealms();
-                    console.log('Regions:', regionsData.items);
-                    setRegions(regionsData.items);
+                    const res = await fetch('/api/realms', {
+                        method: 'GET',
+                        headers: {
+                            'accessToken': token,
+                        },
+                    });
+
+                    if (!res.ok) throw new Error('Failed to fetch realms');
+                    const data = await res.json();
+                    setRegions(data.items);
                 } catch (error) {
-                    console.error('Error fetching regions:', error);
+                    console.error('Error fetching realms:', error);
                 }
             }
         };
+
         fetchRealms();
     }, [token]);
 

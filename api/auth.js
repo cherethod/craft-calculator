@@ -24,9 +24,6 @@ export default async function handler(req, res) {
 
          accessToken = response.data.access_token;
          tokenExpiresAt = currentTime + response.data.expires_at;
-         console.log('Respuesta completa:', response.data);
-         console.log('Token de acceso:', accessToken);
-         console.log('Expira en:', tokenExpiresAt);
       } catch (error) {
          console.error('Error al autenticar:', error.response ? error.response.data : error.message);
          return res.status(500).json({ message: 'Error al autenticar con TradeSkillMaster' });
