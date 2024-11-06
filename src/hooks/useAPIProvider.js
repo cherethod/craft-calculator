@@ -13,28 +13,7 @@ const useAPIProvider = () => {
     const { accessToken, getAuthToken } = useAuth();
     const [ selectedMode, setSelectedMode ] = useState('default');
 
-    // useEffect(() => {
-    //     if (!token) {
-    //         // const storedToken = localStorage.getItem('token');
-    //         // if (storedToken) {
-    //         //     setToken(storedToken);
-    //         // }
-    //         // else {
-    //             const authToken = getAuthToken()
-    //                 .then((newToken) => {
-    //                     setToken(newToken);
-    //                     localStorage.setItem('token', newToken);
-    //                 })
-    //                 .catch((error) => {
-    //                     console.error('Error getting token:', error);
-    //                 });
-    //             setToken(authToken);
-    //             console.log('Token:', token);
-                
-    //         // } 
-    //     }        
-    // }, []);
-
+    // Intervalo en base a tokenExpiresAt
     useEffect(() => {
         const fetchToken = async () => {
             try {
@@ -46,36 +25,36 @@ const useAPIProvider = () => {
             }
         };
 
-        // Llamamos a `fetchToken` inmediatamente para iniciar el proceso
+        // Llamamos a `fetchToken` al montar
         fetchToken();
 
-        // Configuramos un intervalo para volver a intentar obtener el token si no lo tenemos aún
+        // Configurar intervalo solo si hay un tiempo de expiración válido
+        const intervalTime = tokenExpiresAt ? (tokenExpiresAt - Math.floor(Date.now() / 1000)) * 1000 : 60000; // 1 min por defecto
         const intervalId = setInterval(() => {
             if (!token) {
                 fetchToken();
             }
-        }, 1000); // Intenta obtener el token cada 1 segundo
+        }, intervalTime);
 
-        // Limpiamos el intervalo si el componente se desmonta
         return () => clearInterval(intervalId);
-    }, [token]);
+    }, [token, tokenExpiresAt]);
 
-    
+    // fetchRealms sólo si `token` está disponible
     useEffect(() => {
         const fetchRealms = async () => {
             if (token) {
                 try {
                     const regionsData = await getRealms();
-                    console.log('Regions:', regionsData.items);  // Ahora debería mostrar los datos correctos
-                    setRegions(regionsData.items);  // Asegúrate de que la estructura `items` sea correcta
+                    console.log('Regions:', regionsData.items);
+                    setRegions(regionsData.items);
                 } catch (error) {
                     console.error('Error fetching regions:', error);
                 }
             }
         };
-    
         fetchRealms();
     }, [token]);
+
 
     useEffect(() => {
         const localSelectedRegion = localStorage.getItem('selectedRegion');
@@ -108,10 +87,6 @@ const useAPIProvider = () => {
         }
         
     }, [regions, realms, auctionHouses]);   
-
-    // useEffect(() => {
-    //     console.log('Selected Mode changed:', selectedMode);        
-    // }, [selectedMode]);
 
     useEffect(() => {
         if (!selectedRegion && !selectedRealm && !selectedAuctionHouse) {
