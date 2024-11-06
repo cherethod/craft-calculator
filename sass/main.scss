@@ -1,6 +1,8 @@
 @use './_variables.scss' as *;
-@use './_aside.scss';
+@use './aside.scss';
 @use './search_settings.scss';
+@use './prices.scss';
+
 
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -47,7 +49,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    img {
+    img.home-bg-image {
         width: 20vw;
         position: absolute;
         bottom: 0;

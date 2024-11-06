@@ -43,7 +43,7 @@ const SideBar = () => {
             )
         }
             <ul>
-                <li><a href="#">{dictionary && dictionary["prices"]}</a></li>
+                <li onClick={()=> handleSelectedMode("prices")}><a href="#">{dictionary && dictionary["prices"]}</a></li>
                 <li><a href="#">{dictionary && dictionary["craftProfit"]}</a></li>
                 <li><a href="#">{dictionary && dictionary["justiceVendor"]}</a></li>
             </ul>

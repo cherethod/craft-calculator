@@ -1,0 +1,142 @@
+@use 'variables' as *;
+
+
+.items {
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    gap: .5rem;
+    grid-template-rows: auto;
+    /* display: flex;
+    flex-direction: column;
+    gap: .5rem; */
+    margin-bottom: 2rem;
+    z-index: 2;
+
+    .item {
+      display: grid;
+      grid-template-columns: auto 10% 2fr 1fr;
+      place-items: center;  
+      background-color: #333;
+      color: #fff;
+      border-radius: 5px;  
+
+      &.recipe {
+        grid-template-columns: auto 10% 2fr 1.5fr 1fr 1fr;
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+    
+        ul {
+            width: 100%;
+            padding: 0;
+            display: flex;
+            justify-content: start;
+            list-style: none;
+            gap: 1rem;
+
+            li {
+                /* padding: 5px 10px; */
+                width: 30px;
+                height: 30px;
+                border: 1px solid #fff;
+                position: relative;
+
+                span {
+                    content: data-quantity;
+                    position: absolute;
+                    bottom: -3px;
+                    right: 2px;
+                    color: #ffffff;
+                    font-weight: bold;
+                    filter: grayscale(0%);
+                    z-index: 2;
+                  }
+
+                  img {
+                    width: 30px;
+                    height: 30px;
+                    filter: grayscale(90%);
+                    cursor: pointer;
+                  }
+            }
+        }
+      }
+      
+    }
+  }
+  
+
+
+  
+/* Populate Bar */
+
+.progress-bar {
+    width: min-content;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    align-items: end;
+    margin-left: .5rem;
+  }
+  
+  .progress-bar-fill {
+    padding: 0 4px;
+    transition: height 0.3s ease; /* Animación para el cambio de ancho */
+  }
+  
+  .progress-bar-fill.very_high {
+    background-color: #f44336; /* Rojo */
+  }
+  
+  .progress-bar-fill.high {
+    background-color: #ff9800; /* Naranja */
+  }
+  
+  .progress-bar-fill.medium {
+    background-color: #ffc107; /* Amarillo */
+  }
+  
+  .progress-bar-fill.low {
+    background-color: #8bc34a; /* Verde claro */
+  }
+  
+  .progress-bar-fill.very_low {
+    background-color: #4caf50; /* Verde */
+  }
+  
+  
+  
+
+  
+  .item 
+
+/* LOADER SECTION */
+
+.loader {
+    margin: 1rem 2rem;
+    width: 55px;
+    aspect-ratio: 1;
+    --g1:conic-gradient(from  90deg at top    3px left  3px,#0000 90deg,#fff 0);
+    --g2:conic-gradient(from -90deg at bottom 3px right 3px,#0000 90deg,#fff 0);
+    background:
+      var(--g1),var(--g1),var(--g1),var(--g1), 
+      var(--g2),var(--g2),var(--g2),var(--g2);
+    background-position: 0 0,100% 0,100% 100%,0 100%;
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    animation: l11 1.5s infinite;
+  }
+  @keyframes l11 {
+    0%   {background-size:35px 15px,15px 15px,15px 35px,35px 35px}
+    25%  {background-size:35px 35px,15px 35px,15px 15px,35px 15px}
+    50%  {background-size:15px 35px,35px 35px,35px 15px,15px 15px}
+    75%  {background-size:15px 15px,35px 15px,35px 35px,15px 35px}
+    100% {background-size:35px 15px,15px 15px,15px 35px,35px 35px}
+  }
+  
+  /* END LOADER SECTION */

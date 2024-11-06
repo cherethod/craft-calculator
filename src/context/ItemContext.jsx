@@ -6,6 +6,7 @@ const ItemContext = createContext();
 
 const ItemProvider = ({ children }) => {
     const [items, setItems] = useState([]);
+    const [isLoadingData, setIsLoadingData] = useState(false);
     const { 
         token, 
         selectedRegion, 
@@ -22,6 +23,7 @@ const ItemProvider = ({ children }) => {
     // Developement effetc to fullify the items array
     useEffect(() => {
         if (items.length === 0) {
+            setIsLoadingData(true);
             const newItems = [];
 
             for (let item in ItemData.items) {
@@ -61,6 +63,7 @@ const ItemProvider = ({ children }) => {
                 
             }
             setItems(newItems);
+            setIsLoadingData(false);
         }
         
         
@@ -68,7 +71,7 @@ const ItemProvider = ({ children }) => {
 
 
     return (
-        <ItemContext.Provider value={{ items }}>
+        <ItemContext.Provider value={{ items, isLoadingData }}>
         {children}
         </ItemContext.Provider>
     );

@@ -5,24 +5,47 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
     background: $primary-gradient;
     position: relative;
     padding-top: 4rem;
-    
-    .input_container {
+    min-height: 320px;
+
+    form {
         display: flex;
         flex-direction: column;
-        gap: .5rem;
+        gap: 1rem;
+        
+        .input_container {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+    
+            input, select {
+                min-width: 100%;
+                padding: .5rem;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+        }
 
-        input, select {
-            padding: .5rem;
-            border: 1px solid #ccc;
+        .save-btn {
+            background-color: $btn-bg-color;
+            color: $btn-font-color;
+            border: none;
+            padding: 1rem .5rem;
             border-radius: 4px;
+            width: 50%;
+            margin: 0 auto;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: background-color .25s;
+    
+            &:hover {
+                background-color: $btn-bg-color-hover;
+            }
         }
     }
+    
 
     .close_btn {
         position: absolute;
@@ -45,17 +68,5 @@
         }
     }
 
-    .save-btn {
-        background-color: $btn-bg-color;
-        color: $btn-font-color;
-        border: none;
-        padding: .5rem;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color .25s;
-
-        &:hover {
-            background-color: $btn-bg-color-hover;
-        }
-    }
+   
 }

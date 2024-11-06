@@ -86,6 +86,12 @@ const useAPIProvider = () => {
         console.log('Selected Mode changed:', selectedMode);        
     }, [selectedMode]);
 
+    useEffect(() => {
+        if (!selectedRegion && !selectedRealm && !selectedAuctionHouse) {
+            setSelectedMode('search_settings');
+        }
+    }, [selectedRegion, selectedRealm, selectedAuctionHouse]);
+
         const handleTokenChange = (newToken) => {
             setToken(newToken);
         };

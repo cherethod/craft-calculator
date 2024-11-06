@@ -3,6 +3,7 @@ import './App.css';
 import SideBar from './components/SideBar';
 import SearchSettings from './components/SearchSettings';
 import { useAPI } from './context/APIContext';
+import Prices from './components/Prices';
 
 function App() {
   const { selectedRegion, selectedRealm, selectedAuctionHouse, selectedMode } = useAPI();
@@ -16,10 +17,15 @@ function App() {
       <SideBar />
       <main>
         {(!selectedRegion || !selectedRealm || !selectedAuctionHouse || selectedMode === "search_settings")
-          ? (<SearchSettings />)
-          : (<h1>Region: {selectedRegion}, Realm: {selectedRealm}, Auction House: {selectedAuctionHouse}</h1>)
+          && (<SearchSettings />)
         }
-        <img src="./goblin-decoration.png" alt="" />
+        {
+          selectedRegion && selectedRealm && selectedAuctionHouse && selectedMode === "prices" && (
+            <Prices />
+          )          
+        }
+
+        <img className='home-bg-image' src="./goblin-decoration.png" alt="" />
       </main>
     </>
   );
