@@ -23,7 +23,7 @@ const useAuth = () => {
         return accessToken; // If the token is valid, return it
     };
 
-    return { accessToken, getAuthToken };
+    return { accessToken, tokenExpiresAt, getAuthToken };
 };
 
 export default useAuth;

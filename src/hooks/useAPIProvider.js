@@ -10,7 +10,7 @@ const useAPIProvider = () => {
     const [regions, setRegions] = useState([]);
     const [realms, setRealms] = useState([]);
     const [auctionHouses, setAuctionHouses] = useState([]);
-    const { accessToken, getAuthToken } = useAuth();
+    const { accessToken, tokenExpiresAt, getAuthToken } = useAuth();
     const [ selectedMode, setSelectedMode ] = useState('default');
 
     // Intervalo en base a tokenExpiresAt
