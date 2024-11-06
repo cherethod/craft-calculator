@@ -22,18 +22,9 @@ export default async function handler(req, res) {
             token,
          });
 
-         // Verificar qué datos contiene la respuesta
-         console.log('Respuesta completa:', response.data);
-
-         // Comprobar si expires_in está presente y es un número
-         if (typeof response.data.expires_in !== 'number') {
-            console.error('Error: expires_in no es un número válido.');
-            return res.status(500).json({ message: 'Error al obtener expires_in de la API' });
-         }
-
          accessToken = response.data.access_token;
          tokenExpiresAt = currentTime + response.data.expires_in;
-
+         console.log('Respuesta completa:', response.data);
          console.log('Token de acceso:', accessToken);
          console.log('Expira en:', tokenExpiresAt);
       } catch (error) {
