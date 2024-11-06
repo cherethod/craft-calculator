@@ -18,6 +18,11 @@ export async function getAccessToken() {
          });
          accessToken = response.data.access_token;
          tokenExpiresAt = currentTime + response.data.expires_in;
+         console.log('Access token:', accessToken);
+         console.log('Token expires at:', tokenExpiresAt);
+         console.log('Client ID:', client_id);
+         console.log('Token:', token);         
+         
       } catch (error) {
          console.error('Error authenticating:', error);
          throw new Error('Authentication failed');
