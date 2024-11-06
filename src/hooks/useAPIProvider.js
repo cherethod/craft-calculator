@@ -164,7 +164,7 @@ const useAPIProvider = () => {
         };
 
           const getRealms = async () => {
-            const res = await fetch('https://craft-calculator-puce.vercel.app/api/realms');
+            const res = await fetch('api/realms');
             if (!res.ok) throw new Error('Failed to fetch realms');
             const data = await res.json();
             return data;
