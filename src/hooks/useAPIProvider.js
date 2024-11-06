@@ -13,25 +13,52 @@ const useAPIProvider = () => {
     const { accessToken, getAuthToken } = useAuth();
     const [ selectedMode, setSelectedMode ] = useState('default');
 
+    // useEffect(() => {
+    //     if (!token) {
+    //         // const storedToken = localStorage.getItem('token');
+    //         // if (storedToken) {
+    //         //     setToken(storedToken);
+    //         // }
+    //         // else {
+    //             const authToken = getAuthToken()
+    //                 .then((newToken) => {
+    //                     setToken(newToken);
+    //                     localStorage.setItem('token', newToken);
+    //                 })
+    //                 .catch((error) => {
+    //                     console.error('Error getting token:', error);
+    //                 });
+    //             setToken(authToken);
+    //             console.log('Token:', token);
+                
+    //         // } 
+    //     }        
+    // }, []);
+
     useEffect(() => {
-        if (!token) {
-            // const storedToken = localStorage.getItem('token');
-            // if (storedToken) {
-            //     setToken(storedToken);
-            // }
-            // else {
-                const authToken = getAuthToken()
-                    .then((newToken) => {
-                        setToken(newToken);
-                        localStorage.setItem('token', newToken);
-                    })
-                    .catch((error) => {
-                        console.error('Error getting token:', error);
-                    });
-                setToken(authToken);
-            // } 
-        }        
-    }, []);
+        const fetchToken = async () => {
+            try {
+                const newToken = await getAuthToken();
+                setToken(newToken);
+                console.log('Token obtenido:', newToken);
+            } catch (error) {
+                console.error('Error obteniendo el token:', error);
+            }
+        };
+
+        // Llamamos a `fetchToken` inmediatamente para iniciar el proceso
+        fetchToken();
+
+        // Configuramos un intervalo para volver a intentar obtener el token si no lo tenemos aún
+        const intervalId = setInterval(() => {
+            if (!token) {
+                fetchToken();
+            }
+        }, 1000); // Intenta obtener el token cada 1 segundo
+
+        // Limpiamos el intervalo si el componente se desmonta
+        return () => clearInterval(intervalId);
+    }, [token]);
 
     
     useEffect(() => {
@@ -99,11 +126,9 @@ const useAPIProvider = () => {
         const handleRegionChange = (regionSelection) => {
             const selectedRegion = Object.values(regions).find(region => region.regionId === regionSelection);
             if (selectedRegion) {
-                console.log('inside if');                
                 setSelectedRegion(selectedRegion.regionId);
                 setRealms(selectedRegion.realms);
             } else {
-                console.log('inside else');                
                 setSelectedRegion(null);
                 setRealms([]);
             }
@@ -132,7 +157,6 @@ const useAPIProvider = () => {
 
         const handleSubmitSearchSettings = (e) => {
             e.preventDefault();
-            console.log(e);
             
             if (selectedRegion && selectedRealm && selectedAuctionHouse) {
                 localStorage.setItem('selectedRegion', selectedRegion);
@@ -156,6 +180,8 @@ const useAPIProvider = () => {
                 const res = await fetch(`https://craft-calculator-puce.vercel.app/api/auction-prices?auctionHouseId=${auctionHouseId}&itemId=${itemId}`);
                 const data = await res.json();
                 priceCache[cacheKey] = data;  // Almacena el precio en la caché
+                console.log('Auction Prices:', data);
+                
                 return data;
             } catch (error) {
                 console.error('Error fetching auction prices:', error);
