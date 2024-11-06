@@ -45,7 +45,7 @@ const ItemProvider = ({ children }) => {
                     price: selectedAuctionHouse ? getAuctionPrices(selectedAuctionHouse, item) : undefined,
                 };
                 newItems.push(newItem);
-                // console.log('newItem: ',newItem);
+                console.log('newItem: ',newItem);
                 
             }
 
@@ -59,7 +59,7 @@ const ItemProvider = ({ children }) => {
                     price: selectedAuctionHouse ? getAuctionPrices(selectedAuctionHouse, item) : undefined,
                 };
                 newItems.push(newItem);
-                // console.log('newItem: ',newItem);
+                console.log('newItem: ',newItem);
                 
             }
             setItems(newItems);
